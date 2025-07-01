@@ -1,32 +1,28 @@
 {
   "site": {
-    "title": "Bookworm Light Astro | Blog Template",
-    "base_url": "https://bookworm-light-astro.vercel.app",
+    "title": "YJ.log",
+    "base_url": "https://yujeong0411.github.io",
     "base_path": "/",
     "trailing_slash": false,
     "favicon": "/images/favicon.png",
     "logo": "/images/logo.png",
     "logo_width": "200",
     "logo_height": "34",
-    "logo_text": "Bookworm Light"
+    "logo_text": "YJ.log"
   },
-
   "settings": {
     "pagination": 5,
     "summary_length": 100
   },
-
   "metadata": {
-    "meta_author": "Themefisher",
+    "meta_author": "Yujeong",
     "meta_image": "/images/og-image.png",
-    "meta_description": "Bookworm Light Astro Blog Template"
+    "meta_description": "개발과 기술에 대한 경험과 학습을 기록하는 공간입니다."
   },
-
   "params": {
     "contact_form_action": "#",
     "copyright": "Copyright © 2025 a theme by [Themefisher](https://themefisher.com)"
   },
-
   "contactinfo": {
     "address": "355 S Grand Ave <br/> Los Angeles, CA 90071",
     "email": "info@bookworm.org",
