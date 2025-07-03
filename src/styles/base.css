@@ -1,5 +1,7 @@
 html {
   @apply text-base;
+  /* 스크롤바 너비만큼 여백 추가 */
+  margin-left: calc(100vw - 100%);
 }
 
 body {

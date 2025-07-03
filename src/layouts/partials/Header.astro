@@ -253,6 +253,42 @@ const searchList = posts.map((item) => ({
     searchResults.classList.add("hidden");
   }
 
+  // 드롭다운 토글 함수
+  function toggleDropdown(index) {
+    const dropdown = document.getElementById(`dropdown-${index}`);
+    const arrow = document.getElementById(`dropdown-arrow-${index}`);
+
+    if (dropdown && arrow) {
+      const isHidden = dropdown.classList.contains("hidden");
+
+      // 모든 드롭다운 닫기
+      document.querySelectorAll('[id^="dropdown-"]').forEach((el) => {
+        if (el.id !== `dropdown-${index}`) {
+          el.classList.add("hidden");
+        }
+      });
+
+      // 모든 화살표 초기화
+      document.querySelectorAll('[id^="dropdown-arrow-"]').forEach((el) => {
+        if (el.id !== `dropdown-arrow-${index}`) {
+          el.style.transform = "rotate(0deg)";
+        }
+      });
+
+      // 현재 드롭다운 토글
+      if (isHidden) {
+        dropdown.classList.remove("hidden");
+        arrow.style.transform = "rotate(180deg)";
+      } else {
+        dropdown.classList.add("hidden");
+        arrow.style.transform = "rotate(0deg)";
+      }
+    }
+  }
+
+  // 전역 함수로 등록
+  window.toggleDropdown = toggleDropdown;
+
   // 이벤트 리스너 제거 (중복 방지)
   function removeEventListeners() {
     if (searchButton) {
