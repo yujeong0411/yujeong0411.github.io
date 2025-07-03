@@ -61,20 +61,4 @@ export const getTaxonomyWithCounts = async (collection: any, name: string) => {
     a.name.localeCompare(b.name),
   );
 };
-
-// 🆕 get specific taxonomy count
-export const getTaxonomyCount = async (
-  collection: any,
-  name: string,
-  taxonomySlug: string,
-) => {
-  const singlePages = await getSinglePage(collection);
-
-  return singlePages.filter((page: any) => {
-    const categories = page.data[name] || [];
-    return categories.some(
-      (category: string) => slugify(category) === taxonomySlug,
-    );
-  }).length;
-};
 ---

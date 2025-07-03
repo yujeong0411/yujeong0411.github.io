@@ -1,32 +1,59 @@
 ---
 import Base from "@/layouts/Base.astro";
-import { getTaxonomy } from "@/lib/taxonomyParser.astro";
-import { humanize } from "@/lib/utils/textConverter";
-
-const categories = await getTaxonomy("posts", "categories");
-
+import { getTaxonomyWithCounts } from "@/lib/taxonomyParser.astro";
 import { BiCategoryAlt } from "react-icons/bi";
+
+const categoriesWithCounts = await getTaxonomyWithCounts("posts", "categories");
+const totalPosts = categoriesWithCounts.reduce(
+  (sum, cat) => sum + cat.count,
+  0,
+);
 ---
 
 <Base title={"Categories"}>
   <section class="section">
-    <div class="container text-center">
-      <h1 class="h2 page-heading">Categories</h1>
-      <ul class="space-x-4">
+    <div class="container">
+      <div class="text-center mb-12">
+        <h1 class="h2 page-heading">Categories</h1>
+        <p class="text-text max-w-2xl mx-auto">
+          Explore {categoriesWithCounts.length} categories with {totalPosts} posts
+          total.
+        </p>
+      </div>
+
+      <div
+        class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 justify-items-center"
+      >
         {
-          categories.map((category) => (
-            <li class="inline-block">
-              <a
-                href={`/categories/${category}`}
-                class="rounded-lg bg-light px-4 py-2 text-dark transition hover:bg-primary hover:text-white flex items-center group"
-              >
-                <BiCategoryAlt className="mr-1 text-primary group-hover:text-white transition h-6 w-6 scale-75" />
-                {humanize(category || "")}
-              </a>
-            </li>
+          categoriesWithCounts.map((category) => (
+            <a
+              href={`/categories/${category.slug}`}
+              class="block w-full max-w-sm p-6 rounded-xl border border-border hover:border-primary transition-all duration-300 hover:shadow-lg hover:scale-105 group bg-light/50"
+            >
+              <div class="flex items-center justify-between mb-3">
+                <div class="flex items-center flex-1">
+                  <div class="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center mr-4 group-hover:bg-primary/20 transition-colors">
+                    <BiCategoryAlt className="text-xl text-primary" />
+                  </div>
+                  <h3 class="font-semibold text-dark group-hover:text-primary transition-colors text-lg">
+                    {category.name}
+                  </h3>
+                </div>
+                <span class="bg-primary text-white px-3 py-1 rounded-full text-sm font-bold">
+                  {category.count}
+                </span>
+              </div>
+              <p class="text-text text-sm">
+                {category.count === 1 ? "1 post" : `${category.count} posts`} in
+                this category
+              </p>
+              <div class="mt-3 text-primary text-sm font-medium opacity-0 group-hover:opacity-100 transition-opacity">
+                View posts →
+              </div>
+            </a>
           ))
         }
-      </ul>
+      </div>
     </div>
   </section>
 </Base>

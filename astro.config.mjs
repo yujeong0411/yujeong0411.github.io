@@ -6,6 +6,7 @@ import AutoImport from "astro-auto-import";
 import { defineConfig } from "astro/config";
 import remarkCollapse from "remark-collapse";
 import remarkToc from "remark-toc";
+import remarkSlug from "remark-slug";
 import config from "./src/config/config.json";
 
 let highlighter;
@@ -42,6 +43,7 @@ export default defineConfig({
   markdown: {
     remarkPlugins: [
       remarkToc,
+      remarkSlug,
       [
         remarkCollapse,
         {
