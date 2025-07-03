@@ -184,3 +184,56 @@
 footer p a {
   @apply transition-all duration-200 hover:text-white;
 }
+
+
+/* TOC 스타일 */
+/* 스크롤바 스타일 */
+.scrollbar-thin::-webkit-scrollbar {
+  width: 4px;
+}
+
+.scrollbar-thumb-gray-300::-webkit-scrollbar-thumb {
+  background-color: #d1d5db;
+  border-radius: 2px;
+}
+
+.scrollbar-thumb-gray-300::-webkit-scrollbar-thumb:hover {
+  background-color: #9ca3af;
+}
+
+.scrollbar-track-transparent::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+/* 모바일 슬라이드 애니메이션 */
+@keyframes slide-up {
+  from {
+    transform: translateY(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.animate-slide-up {
+  animation: slide-up 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* TOC 진행률 애니메이션 */
+.toc-progress-bar {
+  transition: width 0.3s ease-out;
+}
+
+/* TOC 호버 효과 개선 */
+.toc-item:hover {
+  transform: translateX(2px);
+  transition: transform 0.2s ease;
+}
+
+/* 모바일 TOC 오버레이 */
+.toc-overlay {
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+}

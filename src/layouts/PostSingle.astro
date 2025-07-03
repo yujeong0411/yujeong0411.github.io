@@ -1,4 +1,5 @@
 ---
+// import Share from "@/components/Share.astro";
 import SimilarPosts from "@/components/SimilarPosts.astro";
 import { getSinglePage } from "@/lib/contentParser.astro";
 import dateFormat from "@/lib/utils/dateFormat";
@@ -7,12 +8,24 @@ import { humanize, markdownify, slugify } from "@/lib/utils/textConverter";
 import { Image } from "astro:assets";
 import { render } from "astro:content";
 import { BiCalendarEdit, BiCategoryAlt } from "react-icons/bi";
+import { extractHeadings } from "@/lib/utils/tocFunctions";
+import TableOfContents from "@/layouts/components/TableOfContents";
+import config from "@/config/config.json";
 
 const posts = await getSinglePage("posts");
 const { post } = Astro.props;
 const similarPosts = similerItems(post, posts, post.slug);
 const { Content } = await render(post);
 const { title, description, categories, image, date, tags } = post.data;
+
+// TOC를 위한 헤딩 추출 (tocFunctions.ts 활용)
+const { enable_toc } = config.params;
+let headings: any[] = [];
+
+if (enable_toc) {
+  // tocFunctions.ts의 extractHeadings 함수 사용
+  headings = extractHeadings(post.body);
+}
 ---
 
 <section class="section">
@@ -62,7 +75,7 @@ const { title, description, categories, image, date, tags } = post.data;
       </div>
 
       <div class="md:col-10">
-        <div class="content mb-16 text-left">
+        <div class="content mb-16 text-left" id="post-content">
           <Content />
         </div>
         <div class="flex flex-wrap items-center justify-between">
@@ -80,11 +93,51 @@ const { title, description, categories, image, date, tags } = post.data;
               ))
             }
           </ul>
+
+          <!-- {/* 공유 기능 */}
+          <Share
+            className="social-share mb-4"
+            title={title}
+            description={description}
+            slug={post.id}
+          /> -->
         </div>
       </div>
     </article>
+
+    <!-- TOC 컴포넌트 추가 -->
+    {
+      enable_toc && headings.length > 0 && (
+        <TableOfContents client:load headings={headings} />
+      )
+    }
   </div>
 </section>
+
+<!-- 🆕 헤딩에 자동으로 ID 추가하는 스크립트 -->
+{enable_toc && (
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const content = document.getElementById('post-content');
+      if (!content) return;
+
+      const headings = content.querySelectorAll('h1, h2, h3, h4, h5, h6');
+      
+      headings.forEach(heading => {
+        if (!heading.id) {
+          const text = heading.textContent || '';
+          const id = text
+            .toLowerCase()
+            .replace(/[^\w\s-]/g, '')
+            .replace(/\s+/g, '-')
+            .replace(/-+/g, '-')
+            .trim();
+          heading.id = id;
+        }
+      });
+    });
+  </script>
+)}
 
 <!-- similar posts -->
 {
