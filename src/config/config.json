@@ -1,31 +1,34 @@
 {
   "site": {
-    "title": "YJ.log",
+    "title": "Yj.log",
     "base_url": "https://yujeong0411.github.io",
     "base_path": "/",
     "trailing_slash": false,
     "favicon": "/images/favicon.png",
     "logo": "/images/logo.png",
-    "logo_width": "200",
-    "logo_height": "34",
-    "logo_text": "YJ.log"
+    "logo_width": "150",
+    "logo_height": "40",
+    "logo_text": "Yj.log"
   },
   "settings": {
-    "pagination": 5,
-    "summary_length": 100
+    "pagination": 6,
+    "summary_length": 100,
+    "blog_folder": "posts"
   },
   "metadata": {
     "meta_author": "Yujeong",
     "meta_image": "/images/og-image.png",
-    "meta_description": "개발과 기술에 대한 경험과 학습을 기록하는 공간입니다."
+    "meta_description": "개발과 기술에 대한 경험과 학습을 기록하는 공간입니다. 프로그래밍 튜토리얼, 프로젝트 회고, 그리고 성장하는 개발자의 이야기를 공유합니다."
   },
   "params": {
     "contact_form_action": "#",
-    "copyright": "Copyright © 2025 a theme by [Themefisher](https://themefisher.com)"
+    "copyright": "© 2025 Yj.log. 지속적인 학습과 성장을 기록합니다.",
+    "show_reading_time": true,
+    "enable_toc": true
   },
   "contactinfo": {
-    "address": "355 S Grand Ave <br/> Los Angeles, CA 90071",
-    "email": "info@bookworm.org",
-    "phone": "+800 567 1234"
+    "email": "choiyujeong0411@gmail.com",
+    "github": "https://github.com/yujeong0411",
+    "blog_description": "개발과 학습의 여정을 함께 나누는 공간입니다."
   }
 }

@@ -27,7 +27,8 @@ const {
         alt={title}
         style={{
           height: logo_height.replace("px", "") + "px",
-          width: logo_width.replace("px", "") + "px",
+          width: "auto", // ← 변경!
+          // maxWidth: logo_width.replace("px", "") + "px", // ← 추가!
         }}
       />
     ) : logo_text ? (

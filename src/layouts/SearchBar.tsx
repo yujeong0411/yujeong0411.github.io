@@ -28,49 +28,67 @@ export default function SearchBar({ searchList }: Props) {
   const [searchResults, setSearchResults] = useState<SearchResult[] | null>(
     null,
   );
+  const [fuse, setFuse] = useState<Fuse<SearchItem> | null>(null);
 
   const handleChange = (e: React.FormEvent<HTMLInputElement>) => {
     setInputVal(e.currentTarget.value);
   };
 
-  const fuse = new Fuse(searchList, {
-    keys: ["data.title", "data.categories", "data.tags"],
-    includeMatches: true,
-    minMatchCharLength: 2,
-    threshold: 0.5,
-  });
-
+  // Fuse.js 초기화
   useEffect(() => {
-    const searchUrl = new URLSearchParams(window.location.search);
-    const searchStr = searchUrl.get("q");
-    if (searchStr) setInputVal(searchStr);
+    const fuseInstance = new Fuse(searchList, {
+      keys: ["data.title", "data.categories", "data.tags", "content"],
+      includeMatches: true,
+      minMatchCharLength: 2,
+      threshold: 0.5,
+    });
+    setFuse(fuseInstance);
+  }, [searchList]);
 
-    setTimeout(function () {
-      inputRef.current!.selectionStart = inputRef.current!.selectionEnd =
-        searchStr?.length || 0;
-    }, 50);
+  // URL에서 쿼리 파라미터 읽기 (클라이언트 사이드)
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      const urlParams = new URLSearchParams(window.location.search);
+      const queryParam = urlParams.get("q");
+      if (queryParam) {
+        setInputVal(queryParam);
+
+        // 포커스 설정을 지연시켜 DOM이 준비된 후 실행
+        setTimeout(() => {
+          if (inputRef.current) {
+            inputRef.current.selectionStart = inputRef.current.selectionEnd = queryParam.length;
+          }
+        }, 50);
+      }
+    }
   }, []);
 
+  // 검색 실행
   useEffect(() => {
+    if (!fuse) return;
+
     let inputResult = inputVal.length > 2 ? fuse.search(inputVal) : [];
     setSearchResults(inputResult);
 
-    if (inputVal.length > 0) {
-      const searchParams = new URLSearchParams(window.location.search);
-      searchParams.set("q", inputVal);
-      const newRelativePathQuery =
-        window.location.pathname + "?" + searchParams.toString();
-      history.pushState(null, "", newRelativePathQuery);
-    } else {
-      history.pushState(null, "", window.location.pathname);
+    // URL 업데이트
+    if (typeof window !== 'undefined') {
+      if (inputVal.length > 0) {
+        const searchParams = new URLSearchParams(window.location.search);
+        searchParams.set("q", inputVal);
+        const newRelativePathQuery =
+          window.location.pathname + "?" + searchParams.toString();
+        window.history.pushState(null, "", newRelativePathQuery);
+      } else {
+        window.history.pushState(null, "", window.location.pathname);
+      }
     }
-  }, [inputVal]);
+  }, [inputVal, fuse]);
 
   return (
     <div className="min-h-[45vh]">
       <input
-        className="form-input w-full text-center"
-        placeholder="Type here to Search posts"
+        className="form-input w-full text-center focus:outline-none focus:ring-1 focus:ring-primary focus:border-primary focus:shadow-md transition-all duration-200"
+        placeholder="검색어를 입력하세요..."
         type="text"
         name="search"
         value={inputVal}
@@ -82,11 +100,10 @@ export default function SearchBar({ searchList }: Props) {
 
       {inputVal.length > 1 && (
         <div className="my-6 text-center">
-          Found {searchResults?.length}
-          {searchResults?.length && searchResults?.length === 1
-            ? " result"
-            : " results"}{" "}
-          for '{inputVal}'
+          <p className="text-gray-600">
+            '<span className="font-semibold text-primary">{inputVal}</span>'에 대한{" "}
+            <span className="font-semibold">{searchResults?.length || 0}</span>개의 결과
+          </p>
         </div>
       )}
 
@@ -147,6 +164,18 @@ export default function SearchBar({ searchList }: Props) {
           </div>
         ))}
       </div>
+
+      {inputVal.length > 1 && (!searchResults || searchResults.length === 0) && (
+        <div className="text-center py-16">
+          <div className="text-gray-400 text-6xl mb-4">🔍</div>
+          <h3 className="text-xl font-semibold text-gray-600 mb-2">
+            검색 결과가 없습니다
+          </h3>
+          <p className="text-gray-500">
+            다른 검색어를 시도해보세요
+          </p>
+        </div>
+      )}
     </div>
   );
 }

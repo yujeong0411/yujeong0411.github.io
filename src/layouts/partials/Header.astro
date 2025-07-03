@@ -2,6 +2,7 @@
 import Logo from "@/components/Logo.astro";
 import menu from "@/config/menu.json";
 import { IoSearch } from "react-icons/io5";
+import { getSinglePage } from "@/lib/contentParser.astro";
 
 export interface ChildNavigationLink {
   name: string;
@@ -16,9 +17,17 @@ export interface NavigationLink {
 }
 
 const { main }: { main: NavigationLink[] } = menu;
+
+// 검색을 위한 포스트 데이터 가져오기
+const posts = await getSinglePage("posts");
+const searchList = posts.map((item) => ({
+  slug: item.id,
+  data: item.data,
+  content: item.body,
+}));
 ---
 
-<header class="header pt-6">
+<header class="header pt-6 relative">
   <nav class="navbar container">
     <!-- logo -->
     <div class="order-0">
@@ -50,6 +59,7 @@ const { main }: { main: NavigationLink[] } = menu;
     </label>
     <!-- /navbar toggler -->
 
+    <!-- 네비게이션 메뉴 -->
     <ul
       id="nav-menu"
       class="navbar-nav order-3 hidden w-full md:order-1 md:flex md:w-auto"
@@ -86,15 +96,336 @@ const { main }: { main: NavigationLink[] } = menu;
         ))
       }
     </ul>
-    <div class="order-1 ml-auto flex md:order-2 md:ml-0">
-      <a
-        class="mr-4 inline-block cursor-pointer p-2 text-xl text-dark transition hover:text-primary md:mr-0"
-        href="/search"
-        title="seach"
-        aria-label="seach"
-      >
-        <IoSearch />
-      </a>
+
+    <!-- 검색창 (항상 노출) -->
+    <div class="order-1 ml-auto flex items-center md:order-2 md:ml-4">
+      <div class="relative flex items-center">
+        <input
+          id="search-input"
+          class="bg-light border border-border rounded-lg px-4 py-2 pr-10 text-sm placeholder-gray-500 focus:outline-none focus:ring-1 focus:ring-primary focus:border-primary focus:shadow-md transition-all duration-200 w-40 md:w-64"
+          placeholder="검색..."
+          type="text"
+          autocomplete="off"
+        />
+        <button
+          id="search-button"
+          class="absolute right-2 p-1 text-gray-500 hover:text-primary hover:scale-110 transition-all duration-200"
+          title="검색"
+          aria-label="검색"
+        >
+          <IoSearch className="w-4 h-4" />
+        </button>
+      </div>
     </div>
   </nav>
+
+  <!-- 검색결과 드롭다운 -->
+  <div id="search-results" class="absolute top-full left-0 right-0 z-40 hidden">
+    <div class="container">
+      <div class="relative">
+        <div
+          id="search-results-content"
+          class="absolute right-0 bg-white rounded-lg shadow-xl border border-gray-200 mt-2 w-80 md:w-96 max-h-96 overflow-y-auto z-50"
+        >
+          <!-- 검색 결과가 여기에 표시됩니다 -->
+        </div>
+      </div>
+    </div>
+  </div>
 </header>
+
+<!-- 검색 기능 스크립트 -->
+<script define:vars={{ searchList }}>
+  let fuse;
+  let isInitialized = false; // 초기화 상태 추적
+
+  // DOM 요소들
+  let searchInput, searchButton, searchResults, searchResultsContent;
+
+  // DOM 요소 다시 가져오기
+  function getElements() {
+    searchInput = document.getElementById("search-input");
+    searchButton = document.getElementById("search-button");
+    searchResults = document.getElementById("search-results");
+    searchResultsContent = document.getElementById("search-results-content");
+
+    console.log("DOM elements:", {
+      searchInput: !!searchInput,
+      searchButton: !!searchButton,
+      searchResults: !!searchResults,
+      searchResultsContent: !!searchResultsContent,
+      searchListLength: searchList?.length,
+    });
+  }
+
+  // Fuse.js 동적 로드 및 초기화
+  async function initializeSearch() {
+    if (isInitialized) return;
+
+    try {
+      console.log("Initializing search...");
+      const module = await import("https://cdn.skypack.dev/fuse.js@6.6.2");
+      const Fuse = module.default;
+
+      fuse = new Fuse(searchList, {
+        keys: ["data.title", "data.categories", "data.tags", "content"],
+        includeMatches: true,
+        minMatchCharLength: 2,
+        threshold: 0.5,
+      });
+
+      isInitialized = true;
+      console.log("Search initialized successfully");
+    } catch (error) {
+      console.error("Failed to load Fuse.js:", error);
+    }
+  }
+
+  // 검색 실행
+  function performSearch(query) {
+    console.log("Performing search for:", query);
+
+    if (!fuse || query.length < 2) {
+      searchResults.classList.add("hidden");
+      return;
+    }
+
+    const results = fuse.search(query);
+    console.log("Search results:", results.length);
+    displaySearchResults(results, query);
+  }
+
+  // 검색 결과 표시
+  function displaySearchResults(results, query) {
+    if (results.length === 0) {
+      searchResultsContent.innerHTML = `
+        <div class="p-4 text-center text-gray-500">
+          <p>"${query}"에 대한 검색 결과가 없습니다.</p>
+        </div>
+      `;
+    } else {
+      searchResultsContent.innerHTML = `
+        <div class="p-4">
+          <div class="mb-3 text-sm text-gray-600 border-b pb-2">
+            "${query}"에 대한 ${results.length}개의 결과
+          </div>
+          ${results
+            .slice(0, 5)
+            .map(
+              ({ item }) => `
+            <div class="group py-3 border-b border-gray-100 last:border-b-0 hover:bg-gray-50 -mx-4 px-4 transition-colors cursor-pointer search-result-item" data-href="/${item.slug}">
+              <h3 class="mb-1">
+                <span class="text-base font-semibold text-dark group-hover:text-primary transition-all duration-200">
+                  ${item.data.title}
+                </span>
+              </h3>
+              <div class="flex items-center text-xs text-gray-500 mb-2">
+                <span class="mr-3">${new Date(item.data.date).toLocaleDateString("ko-KR")}</span>
+                <span>${item.data.categories.join(", ")}</span>
+              </div>
+              <p class="text-gray-600 text-sm leading-relaxed">
+                ${item.content ? item.content.slice(0, 100) + "..." : item.data.description || ""}
+              </p>
+            </div>
+          `,
+            )
+            .join("")}
+          ${
+            results.length > 5
+              ? `
+            <div class="p-3 text-center border-t">
+              <a href="/search?q=${encodeURIComponent(query)}" class="text-primary hover:underline text-sm font-medium">
+                모든 검색 결과 보기 (${results.length}개)
+              </a>
+            </div>
+          `
+              : ""
+          }
+        </div>
+      `;
+    }
+
+    searchResults.classList.remove("hidden");
+  }
+
+  // 검색 결과 숨기기
+  function hideSearchResults() {
+    searchResults.classList.add("hidden");
+  }
+
+  // 이벤트 리스너 제거 (중복 방지)
+  function removeEventListeners() {
+    if (searchButton) {
+      searchButton.removeEventListener("click", handleSearchClick);
+    }
+    if (searchInput) {
+      searchInput.removeEventListener("keydown", handleSearchKeydown);
+      searchInput.removeEventListener("input", handleSearchInput);
+      searchInput.removeEventListener("focus", handleSearchFocus);
+    }
+    if (searchResults) {
+      searchResults.removeEventListener("click", handleResultsClick);
+    }
+    document.removeEventListener("click", handleDocumentClick);
+    document.removeEventListener("keydown", handleDocumentKeydown);
+  }
+
+  // 이벤트 핸들러들
+  // 검색 버튼 클릭
+  function handleSearchClick(e) {
+    e.preventDefault();
+    const query = searchInput.value.trim();
+    console.log("Search button clicked, query:", query);
+    if (query) {
+      performSearch(query);
+    }
+  }
+
+  // enter로 검색
+  function handleSearchKeydown(e) {
+    if (e.key === "Enter") {
+      e.preventDefault();
+      const query = searchInput.value.trim();
+      console.log("Enter pressed, query:", query);
+      if (query) {
+        performSearch(query);
+      }
+    }
+  }
+
+  // 타이핑 시 검색 시행
+  let searchTimeout;
+  function handleSearchInput(e) {
+    clearTimeout(searchTimeout);
+    const query = e.target.value.trim();
+
+    if (query.length < 2) {
+      hideSearchResults();
+      return;
+    }
+
+    // 500ms 지연 후 검색 (너무 자주 검색되지 않도록)
+    searchTimeout = setTimeout(() => {
+      performSearch(query);
+    }, 500);
+  }
+
+  // 검색 결과 클릭 : 페이지 이동
+  function handleResultsClick(e) {
+    // 검색 결과 아이템 클릭 시 페이지 이동
+    const resultItem = e.target.closest(".search-result-item");
+    if (resultItem) {
+      const href = resultItem.getAttribute("data-href");
+      if (href) {
+        hideSearchResults();
+        window.location.href = href;
+        return;
+      }
+    }
+
+    // "모든 검색 결과 보기" 링크 클릭 시
+    if (e.target.tagName === "A") {
+      hideSearchResults();
+    }
+  }
+
+  // 검색 결과 재표시 (있다면)
+  function handleSearchFocus() {
+    const query = searchInput.value.trim();
+    if (query.length >= 2) {
+      performSearch(query);
+    }
+  }
+
+  // 외부 클릭 : 검색결과 닫기
+  function handleDocumentClick(e) {
+    const isSearchArea =
+      e.target.closest("#search-input") ||
+      e.target.closest("#search-button") ||
+      e.target.closest("#search-results");
+
+    if (!isSearchArea) {
+      hideSearchResults();
+    }
+  }
+
+  // ESC : 검색결과 닫기
+  function handleDocumentKeydown(e) {
+    if (e.key === "Escape") {
+      hideSearchResults();
+    }
+  }
+
+  // 이벤트 리스너 등록
+  function attachEventListeners() {
+    console.log("Attaching event listeners...");
+
+    // 기존 이벤트 리스너 제거
+    removeEventListeners();
+
+    // 새 이벤트 리스너 등록
+    if (searchButton) {
+      searchButton.addEventListener("click", handleSearchClick);
+    }
+
+    if (searchInput) {
+      searchInput.addEventListener("keydown", handleSearchKeydown);
+      searchInput.addEventListener("input", handleSearchInput);
+      searchInput.addEventListener("focus", handleSearchFocus);
+    }
+
+    if (searchResults) {
+      searchResults.addEventListener("click", handleResultsClick);
+    }
+
+    document.addEventListener("click", handleDocumentClick);
+    document.addEventListener("keydown", handleDocumentKeydown);
+
+    console.log("Event listeners attached");
+  }
+
+  // 초기화 함수
+  async function init() {
+    console.log("Initializing search functionality...");
+    getElements();
+
+    if (
+      !searchInput ||
+      !searchButton ||
+      !searchResults ||
+      !searchResultsContent
+    ) {
+      console.error("Required DOM elements not found");
+      return;
+    }
+
+    await initializeSearch();
+    attachEventListeners();
+
+    console.log("Search functionality ready");
+  }
+
+  // 페이지 로드 시 초기화
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", init);
+  } else {
+    // DOM이 이미 로드된 경우 즉시 실행
+    init();
+  }
+
+  // 페이지 변경 시 재초기화 (Astro의 view transitions 지원)
+  document.addEventListener("astro:page-load", () => {
+    console.log("Page loaded, reinitializing search...");
+    isInitialized = false;
+    init();
+  });
+
+  // 브라우저 뒤로가기/앞으로가기 시 재초기화
+  window.addEventListener("pageshow", (event) => {
+    if (event.persisted) {
+      console.log("Page restored from cache, reinitializing search...");
+      isInitialized = false;
+      init();
+    }
+  });
+</script>

@@ -1,9 +1,13 @@
 // sort by date
 export const sortByDate = (array: any[]) => {
   const sortedArray = array.sort(
-    (a: any, b: any) =>
-      new Date(b.data.date && b.data.date).valueOf() -
-      new Date(a.data.date && a.data.date).valueOf(),
+    (a: any, b: any) => {
+      // 날짜가 없으면 현재 시간으로 설정 (맨 위로 정렬됨)
+      const dateA = a.data.date ? new Date(a.data.date) : new Date();
+      const dateB = b.data.date ? new Date(b.data.date) : new Date();
+
+      return dateB.valueOf() - dateA.valueOf(); // 최신순 정렬
+    }
   );
   return sortedArray;
 };

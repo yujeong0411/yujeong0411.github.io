@@ -4,11 +4,10 @@ import Base from "@/layouts/Base.astro";
 import { markdownify } from "@/lib/utils/textConverter";
 import type { CollectionEntry } from "astro:content";
 import { getEntry } from "astro:content";
-import { FaAddressCard, FaEnvelope, FaPhoneAlt } from "react-icons/fa";
+import { FaEnvelope, FaGithub } from "react-icons/fa";
 
 const entry = (await getEntry("pages", "contact")) as CollectionEntry<"pages">;
-const { contact_form_action } = config.params;
-const { address, email, phone } = config.contactinfo;
+const { email, github, blog_description } = config.contactinfo;
 const { title, description, meta_title, image } = entry.data;
 ---
 
@@ -21,80 +20,227 @@ const { title, description, meta_title, image } = entry.data;
   <section class="section">
     <div class="container">
       <h1 set:html={markdownify(title)} class="h2 page-heading" />
-      <div class="row md:gx-5 gy-5">
-        <div class="sm:col-5 md:col-4">
-          <p class="mb-8 text-2xl font-bold text-text-dark">Contact Info</p>
-          <ul class="flex flex-col space-y-8">
-            <li>
-              <div class="flex text-text-dark items-center text-xl">
-                <FaAddressCard className="mr-3 text-primary" />
-                <p class="font-semibold">Address</p>
+
+      <div class="row justify-center">
+        <div class="col-8 md:col-10 lg:col-12">
+          <!-- 인사말 -->
+          <div class="text-center mb-12">
+            <p class="text-xl text-text-dark mb-4">
+              {blog_description}
+            </p>
+            <p class="text-text leading-relaxed">
+              궁금한 점이나 함께 이야기하고 싶은 주제가 있으시면 언제든
+              연락주세요! <br />개발 관련 질문, 협업 제안, 또는 단순한 안부
+              인사도 환영합니다.
+            </p>
+          </div>
+
+          <!-- 연락 정보 카드 -->
+          <div class="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+            <!-- <div class="space-y-6"> -->
+            <!-- 이메일 카드 -->
+            <div
+              class="bg-light rounded-lg p-6 hover:shadow-lg transition-shadow duration-300"
+            >
+              <div class="flex items-center mb-3">
+                <FaEnvelope className="text-2xl text-primary mr-4" />
+                <h3 class="text-xl font-semibold text-text-dark">Email</h3>
               </div>
-              <p set:html={markdownify(address)} class="mt-2 leading-5 pl-8" />
-            </li>
-            <li>
-              <div class="flex text-text-dark items-center text-xl">
-                <FaEnvelope className="mr-3 text-primary" />
-                <p class="font-semibold">Email</p>
+              <p class="text-text mb-3">
+                가장 빠르게 연락할 수 있는 방법입니다.
+              </p>
+              <div class="flex items-center space-x-3">
+                <span id="email-display" class="text-primary font-medium"
+                  >클릭해서 이메일 주소 보기</span
+                >
+                <button
+                  id="email-btn"
+                  class="inline-flex items-center px-3 py-1 text-sm bg-primary text-white rounded-md hover:bg-primary/80 transition-colors duration-200"
+                  title="이메일 주소 보기 및 복사"
+                >
+                  <svg
+                    class="w-4 h-4 mr-1"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"
+                    ></path>
+                  </svg>
+                  보기
+                </button>
               </div>
-              <p
-                set:html={markdownify(email)}
-                class="mt-2 leading-5 pl-8 content"
-              />
-            </li>
-            <li>
-              <div class="flex text-text-dark items-center text-xl">
-                <FaPhoneAlt className="mr-3 text-primary" />
-                <p class="font-semibold">Phone</p>
+            </div>
+
+            <!-- GitHub Issues 카드 -->
+            <div
+              class="bg-light rounded-lg p-6 hover:shadow-lg transition-shadow duration-300"
+            >
+              <div class="flex items-center mb-3">
+                <svg
+                  class="w-6 h-6 text-primary mr-4"
+                  fill="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 15h2v-2h-2v2zm0-4h2V7h-2v6z"
+                  ></path>
+                </svg>
+                <h3 class="text-xl font-semibold text-text-dark">
+                  GitHub Issues
+                </h3>
               </div>
-              <p set:html={markdownify(phone)} class="mt-2 leading-5 pl-8" />
-            </li>
-          </ul>
-        </div>
-        <div class="sm:col-7 md:col-8">
-          <form
-            class="contact-form row gy-2 justify-center"
-            method="POST"
-            action={contact_form_action}
-          >
-            <div class="lg:col-6">
-              <label class="mb-2 block" for="name"
-                >Name <span class="text-red-600">*</span></label
+              <p class="text-text mb-4">
+                개발하면서 생긴 질문이나 의견, 개선 아이디어가 있다면 편하게
+                남겨주세요.
+              </p>
+              <div class="flex flex-wrap gap-2">
+                <a
+                  href={github + "/yujeong0411.github.io/issues"}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="inline-flex items-center px-3 py-2 text-sm bg-primary text-white rounded-md hover:bg-primary/80 transition-colors duration-200"
+                >
+                  <svg
+                    class="w-4 h-4 mr-1"
+                    fill="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"
+                    ></path>
+                  </svg>
+                  Issues 보기
+                </a>
+                <a
+                  href={github + "/yujeong0411.github.io/issues/new"}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="inline-flex items-center px-3 py-2 text-sm border-2 border-primary text-primary rounded-md hover:bg-primary hover:text-white transition-colors duration-200"
+                >
+                  <svg
+                    class="w-4 h-4 mr-1"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M12 4v16m8-8H4"></path>
+                  </svg>
+                  새 질문하기
+                </a>
+              </div>
+            </div>
+
+            <!-- GitHub 프로필 카드 -->
+            <div
+              class="bg-light rounded-lg p-6 hover:shadow-lg transition-shadow duration-300"
+            >
+              <div class="flex items-center mb-3">
+                <FaGithub className="text-2xl text-primary mr-4" />
+                <h3 class="text-xl font-semibold text-text-dark">
+                  GitHub 프로필
+                </h3>
+              </div>
+              <p class="text-text mb-3">
+                코드와 프로젝트를 확인하고 싶으시다면 GitHub을 방문해보세요.
+              </p>
+              <a
+                href={github}
+                target="_blank"
+                rel="noopener noreferrer"
+                class="inline-flex items-center text-primary hover:text-primary/80 font-medium transition-colors duration-200"
               >
-              <input
-                class="form-input w-full"
-                name="name"
-                type="text"
-                required
-              />
+                {github.replace("https://github.com/", "@")}
+                <svg
+                  class="ml-2 w-4 h-4"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"
+                  ></path>
+                </svg>
+              </a>
             </div>
-            <div class="lg:col-6">
-              <label class="mb-2 block" for="email"
-                >Email <span class="text-red-600">*</span></label
-              >
-              <input
-                class="form-input w-full"
-                name="email"
-                type="email"
-                required
-              />
-            </div>
-            <div class="col-12">
-              <label class="mb-2 block" for="subject">Subject</label>
-              <input class="form-input w-full" name="subject" type="text" />
-            </div>
-            <div class="col-12">
-              <label class="mb-2 block" for="message"
-                >Message <span class="text-red-600">*</span></label
-              >
-              <textarea class="form-textarea w-full" rows="4"></textarea>
-            </div>
-            <div class="col-12">
-              <button class="btn btn-primary mt-2">Submit Now</button>
-            </div>
-          </form>
+          </div>
         </div>
       </div>
     </div>
   </section>
 </Base>
+
+<!-- JavaScript를 완전히 분리 -->
+<script>
+  // 페이지가 완전히 로드된 후 실행
+  document.addEventListener("DOMContentLoaded", function () {
+    let emailRevealed = false;
+
+    function revealAndCopyEmail() {
+      // 스팸봇 방지를 위해 JavaScript로 이메일 생성
+      const user = "Y2hvaXl1amVvbmcwNDEx"; // Base64: choiyujeong0411
+      const domain = "Z21haWwuY29t"; // Base64: gmail.com
+      const email = atob(user) + "@" + atob(domain);
+
+      const displayElement = document.getElementById("email-display");
+      const button = document.getElementById("email-btn");
+
+      // null 체크
+      if (!displayElement || !button) {
+        console.error("Required elements not found");
+        return;
+      }
+
+      if (!emailRevealed) {
+        // 첫 클릭: 이메일 주소 보여주기
+        displayElement.textContent = email;
+        button.innerHTML =
+          '<svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 002 2v8a2 2 0 002 2z"/></svg>복사';
+        button.title = "이메일 주소 복사";
+        emailRevealed = true;
+      } else {
+        // 두 번째 클릭: 복사하기
+        navigator.clipboard
+          .writeText(email)
+          .then(() => {
+            const originalText = button.innerHTML;
+            button.innerHTML =
+              '<svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>복사됨!';
+            button.classList.add("bg-green-500");
+            setTimeout(() => {
+              button.innerHTML = originalText;
+              button.classList.remove("bg-green-500");
+            }, 2000);
+          })
+          .catch(() => {
+            alert("이메일 주소: " + email);
+          });
+      }
+    }
+
+    // 이벤트 리스너 등록
+    const emailButton = document.getElementById("email-btn");
+    if (emailButton) {
+      emailButton.addEventListener("click", revealAndCopyEmail);
+      console.log("이벤트 리스너 등록 성공");
+    } else {
+      console.log("이메일 버튼을 찾을 수 없습니다.");
+    }
+  });
+</script>
