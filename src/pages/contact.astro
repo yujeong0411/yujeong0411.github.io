@@ -37,7 +37,6 @@ const { title, description, meta_title, image } = entry.data;
 
           <!-- 연락 정보 카드 -->
           <div class="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-            <!-- <div class="space-y-6"> -->
             <!-- 이메일 카드 -->
             <div
               class="bg-light rounded-lg p-6 hover:shadow-lg transition-shadow duration-300"
@@ -187,8 +186,8 @@ const { title, description, meta_title, image } = entry.data;
 </Base>
 
 <script>
-  // 페이지가 완전히 로드된 후 실행
-  document.addEventListener("DOMContentLoaded", function () {
+  // 🔧 Astro 전용 이벤트 사용 (페이지 이동 시에도 작동)
+  function initEmailButton() {
     let emailRevealed = false;
 
     function revealAndCopyEmail() {
@@ -236,10 +235,15 @@ const { title, description, meta_title, image } = entry.data;
     // 이벤트 리스너 등록
     const emailButton = document.getElementById("email-btn");
     if (emailButton) {
+      // 기존 이벤트 리스너 제거 (중복 방지)
+      emailButton.removeEventListener("click", revealAndCopyEmail);
       emailButton.addEventListener("click", revealAndCopyEmail);
-      console.log("이벤트 리스너 등록 성공");
-    } else {
-      console.log("이메일 버튼을 찾을 수 없습니다.");
     }
-  });
+  }
+
+  // Astro 페이지 로드/변경 시 실행
+  document.addEventListener("astro:page-load", initEmailButton);
+
+  // 기존 방식도 유지 (새로고침 시)
+  document.addEventListener("DOMContentLoaded", initEmailButton);
 </script>
