@@ -33,6 +33,7 @@ const searchList = posts.map((item) => ({
     <div class="order-0">
       <Logo />
     </div>
+
     <!-- navbar toggler -->
     <input id="nav-toggle" type="checkbox" class="hidden" />
     <label
@@ -97,25 +98,37 @@ const searchList = posts.map((item) => ({
       }
     </ul>
 
-    <!-- 검색창 (항상 노출) -->
-    <div class="order-1 ml-auto flex items-center md:order-2 md:ml-4">
-      <div class="relative flex items-center">
-        <input
-          id="search-input"
-          class="bg-light border border-border rounded-lg px-4 py-2 pr-10 text-sm placeholder-gray-500 focus:outline-none focus:ring-1 focus:ring-primary focus:border-primary focus:shadow-md transition-all duration-200 w-40 md:w-64"
-          placeholder="검색..."
-          type="text"
-          autocomplete="off"
-        />
-        <button
-          id="search-button"
-          class="absolute right-2 p-1 text-gray-500 hover:text-primary hover:scale-110 transition-all duration-200"
-          title="검색"
-          aria-label="검색"
-        >
-          <IoSearch className="w-4 h-4" />
-        </button>
-      </div>
+    <!-- 검색창 -->
+    <div class="order-1 ml-auto flex items-center md:order-2 md:ml-4 relative">
+      <!-- 모바일 전용 검색 아이콘 -->
+      <button
+        id="search-toggle"
+        class="block md:hidden p-2 text-gray-600 hover:text-primary"
+        aria-label="검색 열기"
+      >
+        <IoSearch className="w-5 h-5" />
+      </button>
+
+      <!-- 검색 입력창 (반응형) -->
+      <input
+        id="search-input"
+        class="transition-all duration-300 ease-in-out bg-light border border-border rounded-lg px-4 py-2 pr-10 text-sm placeholder-gray-500 focus:outline-none focus:ring-1 focus:ring-primary focus:border-primary focus:shadow-md
+        w-0 opacity-0 absolute right-0 top-full mt-2 z-50
+        md:static md:mt-0 md:relative md:w-64 md:opacity-100"
+        placeholder="검색..."
+        type="text"
+        autocomplete="off"
+      />
+
+      <!-- 데스크탑 전용 검색 버튼 -->
+      <button
+        id="search-button"
+        class="hidden md:block absolute md:static right-2 p-1 text-gray-500 hover:text-primary hover:scale-110 transition-all duration-200"
+        title="검색"
+        aria-label="검색"
+      >
+        <IoSearch className="w-4 h-4" />
+      </button>
     </div>
   </nav>
 
@@ -440,6 +453,25 @@ const searchList = posts.map((item) => ({
 
     console.log("Search functionality ready");
   }
+
+  // 모바일 검색창 토글 기능 추가
+  const toggleBtn = document.getElementById("search-toggle");
+  const input = document.getElementById("search-input");
+
+  let isOpen = false;
+
+  toggleBtn?.addEventListener("click", () => {
+    isOpen = !isOpen;
+    if (isOpen) {
+      input.classList.remove("w-0", "opacity-0");
+      input.classList.add("w-60", "opacity-100");
+      input.focus();
+    } else {
+      input.classList.remove("w-60", "opacity-100");
+      input.classList.add("w-0", "opacity-0");
+      input.blur();
+    }
+  });
 
   // 페이지 로드 시 초기화
   if (document.readyState === "loading") {

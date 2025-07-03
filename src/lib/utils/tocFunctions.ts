@@ -26,14 +26,29 @@ export function extractHeadings(content: string): TocItem[] {
   return nestHeadings(headings);
 }
 
-// 텍스트를 URL-safe한 ID로 변환
+// 텍스트를 URL-safe한 ID로 변환 (한글 지원)
 function slugifyHeading(text: string): string {
   return text
     .toLowerCase()
-    .replace(/[^\w\s-]/g, '') // 특수문자 제거
-    .replace(/\s+/g, '-') // 공백을 하이픈으로
-    .replace(/-+/g, '-') // 연속 하이픈 제거
-    .trim();
+    .trim()
+    // 한글, 영문, 숫자, 공백, 하이픈만 남기기 (한글 범위: 가-힣)
+    .replace(/[^\w\s가-힣-]/g, '')
+    // 공백을 하이픈으로 변경
+    .replace(/\s+/g, '-')
+    // 연속된 하이픈을 하나로 변경
+    .replace(/-+/g, '-')
+    // 앞뒤 하이픈 제거
+    .replace(/^-+|-+$/g, '')
+    // URL 인코딩 (한글 처리)
+    .split('')
+    .map(char => {
+      // 한글이면 URL 인코딩
+      if (/[가-힣]/.test(char)) {
+        return encodeURIComponent(char);
+      }
+      return char;
+    })
+    .join('');
 }
 
 // 헤딩을 중첩 구조로 변환
