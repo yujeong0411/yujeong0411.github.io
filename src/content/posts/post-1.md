@@ -3,7 +3,7 @@ title: "GitHub Pages와 Astro로 블로그 만들기 가이드"
 meta_title: "GitHub Pages Astro 블로그 만들기"
 description: "GitHub Pages와 Astro를 사용해서 무료로 개인 블로그를 만드는 방법을 단계별로 설명합니다. 저장소 생성부터 배포, 테마 적용까지 완벽 가이드."
 date: 2025-07-04
-image: "/images/posts/01.jpg"
+image: "https://res.cloudinary.com/dofrfwdqh/image/upload/v1751632956/post-1-thumbnail.png"
 categories: ["development", "tutorial"]
 tags: ["github-pages", "astro", "blog", "tutorial", "deployment"]
 draft: false
@@ -166,8 +166,8 @@ git push origin main
 ```
 
 <h5> GitHub Pages 활성화 </h5>
-<img src="/images/posts/post-1-1.png" alt="GitHub Pages 설정" width="800">
 
+![GitHub Pages](https://res.cloudinary.com/dofrfwdqh/image/upload/v1751632508/post-1-02.png)
 1. **GitHub 저장소**로 이동
 2. **Settings** → **Pages** 클릭
 3. **Source**에서 **GitHub Actions** 선택
@@ -175,8 +175,8 @@ git push origin main
 
 
 <h5> 배포 확인 </h5>
-<img src="/images/posts/post-1-2.png" alt="GitHub Pages 설정" width="800">
 
+![배포확인](https://res.cloudinary.com/dofrfwdqh/image/upload/v1751632508/post-1/01.png)
 1. 저장소의 **Actions** 탭 클릭
 2. "Deploy to GitHub Pages" 워크플로우 상태 확인:
    - 🟡 **노란색**: 실행 중

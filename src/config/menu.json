@@ -13,19 +13,12 @@
       "url": "/categories"
     },
     {
-      "name": "Pages",
-      "url": "",
-      "hasChildren": true,
-      "children": [
-        {
-          "name": "Contact",
-          "url": "/contact"
-        },
-        {
-          "name": "Tags",
-          "url": "/tags"
-        }
-      ]
+      "name": "Tags",
+      "url": "/tags"
+    },
+    {
+      "name": "Contact",
+      "url": "/contact"
     }
   ],
   "footer": [
