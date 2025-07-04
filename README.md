@@ -1,102 +1,75 @@
-<h1 align=center>Bookworm Light Astro</h1>
-<p align=center>Bookworm Light is a feature-rich, minimal, highly customizable, easy-to-use free Astro blog theme.</p>
-<h2 align="center"> <a target="_blank" href="https://bookworm-light-astro.vercel.app/" rel="nofollow">👀Demo</a> | <a  target="_blank" href="https://pagespeed.web.dev/report?url=https%3A%2F%2Fbookworm-light-astro.vercel.app%2F&form_factor=desktop">Page Speed (100%)🚀</a>
-</h2>
+# YJ.log 📚
 
-<p align=center>
-  <a href="https://github.com/withastro/astro/releases/tag/astro%405.5.2" alt="Contributors">
-    <img src="https://img.shields.io/static/v1?label=ASTRO&message=5.5&color=000&logo=astro" />
-  </a>
+> 개발과 학습의 경험을 기록하는 공간입니다.
 
-  <a href="https://github.com/themefisher/bookworm-light-astro/blob/main/LICENSE">
-    <img src="https://img.shields.io/github/license/themefisher/bookworm-light-astro" alt="license"></a>
+[![GitHub Pages](https://img.shields.io/badge/GitHub%20Pages-deployed-green)](https://yujeong0411.github.io)
+[![Astro](https://img.shields.io/badge/Astro-5.5-000?logo=astro)](https://astro.build/)
+[![Tailwind CSS](https://img.shields.io/badge/Tailwind%20CSS-blue?logo=tailwindcss)](https://tailwindcss.com/)
 
-  <img src="https://img.shields.io/github/languages/code-size/themefisher/bookworm-light-astro" alt="code size">
+## 🌟 소개
 
-  <a href="https://github.com/themefisher/bookworm-light-astro/graphs/contributors">
-    <img src="https://img.shields.io/github/contributors/themefisher/bigspring-light-astro" alt="contributors"></a>
-</p>
+안녕하세요! **최유정**입니다. 데이터 분석과 웹 개발에 관심이 많은 개발자입니다.  
+이 블로그에서는 SQL, 프로그래밍, 그리고 다양한 학습 경험을 기록하고 공유합니다.
 
-![bookworm-light](https://demo.gethugothemes.com/thumbnails/bookworm-light.png)
+**방문하기:** [yujeong0411.github.io](https://yujeong0411.github.io)
 
-Bookworm Light is a minimal multi-author free Astro blog theme which is perfect for any kind of blog website. Whether you're interested in food, beauty, travel, photography, lifestyle, fitness, health, or other topics, this theme is a great fit. The theme is super fast and SEO friendly which makes it easier for your content to be discovered by search engines.
+## 📝 주요 콘텐츠
 
-## 🔑Key Features
+- **SQL 코딩테스트 벼락치기** - 데이터 분석 직무 준비 가이드
+- **GitHub Pages 블로그 만들기** - Astro로 무료 블로그 구축
+- **프로젝트 회고** - 개발 경험과 학습 내용 정리
 
-- 🎨 Highly Customizable (Color, Font, Menu, Social Links, SEO Meta Tags, etc.)
-- 👥 Multi-Author Support
-- 📚 Authors Page
-- 👤 Author Single Page
-- 🔍 Search Functionality with FuseJS
-- 🏷️ Tags and Categories Support
-- 📲 Post Social Share Option
-- 🔗 Similar Post Suggestions
-- ⚡ Fast by Default (95+ Google PageSpeed Score)
-- ⚙️ Netlify Settings Pre-configured
-- 📬 Contact Form Support
-- 🌅 Support OG Image
-- ✍️ Write and Update Content in Markdown / MDX
-- 📚 MDX Components Auto Import
-- 📝 Includes Draft Pages and Posts
-- 🚀 Built with Tailwind CSS Framework
-- 📱 Fully Responsive on Desktops, Tablets, and Smartphones
-- 🔍 SEO Friendly
+## 🛠️ 기술 스택
 
-<!-- installation -->
+- **프레임워크:** [Astro](https://astro.build/)
+- **스타일링:** [Tailwind CSS](https://tailwindcss.com/)
+- **호스팅:** [GitHub Pages](https://pages.github.com/)
+- **이미지:** [Cloudinary](https://cloudinary.com/)
+- **배포:** GitHub Actions
 
-## 🔧Installation
+## 🚀 로컬 실행
 
-After downloading the template, you have some prerequisites to install. Then you can run it on your localhost. You can view the package.json file to see which scripts are included.
+```bash
+# 저장소 클론
+git clone https://github.com/yujeong0411/yujeong0411.github.io.git
+cd yujeong0411.github.io
 
-### ⚙️Install prerequisites (once for a machine)
-
-- **Node Installation:** [Install node js](https://nodejs.org/en/download/) [Recommended LTS version]
-
-### 🖥️Local setup
-
-After successfully installing those dependencies, open this template with any IDE [[VS Code](https://code.visualstudio.com/) recommended], and then open the internal terminal of IDM [vs code shortcut <code>ctrl/cmd+\`</code>]
-
-- Install dependencies
-
-```
+# 의존성 설치
 npm install
-```
 
-- Run locally
-
-```
+# 개발 서버 실행
 npm run dev
 ```
 
-After that, it will open up a preview of the template in your default browser, watch for changes to source files, and live-reload the browser when changes are saved.
+## 📊 주요 프로젝트
 
-## 🔨Production Build
+### [Dr.Navi](https://github.com/yujeong0411/Dr.Navi)
+- RAG 기반 진료과 추천 서비스
+- Python, Streamlit, GPT-4-mini
 
-After finishing all the customization, you can create a production build by running this command.
+### [POSS](https://github.com/yujeong0411/POSS)
+- 생산계획 최적화 시스템 (삼성전자 연계)
+- Python, PyQt5, 데이터 분석
 
-```
-npm run build
-```
+### [Safe Connect](https://github.com/yujeong0411/Safe-Connect)
+- WebRTC 기반 통합 응급의료 플랫폼
+- TypeScript, React, WebRTC
 
-<!-- reporting issue -->
+## 📬 연락처
 
-## 🐞Reporting Issues
+- **이메일:** choiyujeong0411@gmail.com
+- **GitHub:** [@yujeong0411](https://github.com/yujeong0411)
+- **블로그:** [yujeong0411.github.io](https://yujeong0411.github.io)
 
-We use GitHub Issues as the official bug tracker for this Template. Please Search [existing issues](https://github.com/themefisher/bookworm-light-astro/issues). It’s possible someone has already reported the same problem.
-If your problem or idea has not been addressed yet, feel free to [open a new issue](https://github.com/themefisher/bookworm-light-astro/issues).
+## 🎨 테마 정보
 
-<!-- licence -->
+이 블로그는 [Bookworm Light Astro](https://github.com/themefisher/bookworm-light-astro) 테마를 기반으로 제작되었습니다.
 
-## 📄License
+**Theme License:** MIT License  
+**Theme Author:** [Themefisher](https://themefisher.com)
 
-Copyright (c) 2023 - Present, Designed & Developed by [Themefisher](https://themefisher.com)
+---
 
-**Code License:** Released under the [MIT](https://github.com/themefisher/bookworm-light-astro/blob/main/LICENSE) license.
-
-**Image license:** The images are only for demonstration purposes. They have their license, we don't have permission to share those images.
-
-## 👨‍💻Need Custom Development Services?
-
-Besides developing beautifully designed and blazing-fast themes, we help businesses create fast, performance-focused, scalable & secure websites based on NextJs, Hugo, Astro, etc.
-
-If you need a custom theme, theme customization, or complete website development services from scratch you can [Hire Us](https://themefisher.com/contact).
+<p align="center">
+  <strong>지속적인 학습과 성장을 기록합니다 🌱</strong>
+</p>
