@@ -90,6 +90,7 @@ npm run dev
 ### 4단계: 배포 설정
 
 <h5> astro.config.mjs 수정 </h5>
+
 [공식문서](https://docs.astro.build/ko/guides/deploy/github/)
 
 - site
