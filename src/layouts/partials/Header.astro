@@ -148,7 +148,7 @@ const searchList = posts.map((item) => ({
 </header>
 
 <!-- 검색 기능 스크립트 -->
-<script define:vars={{ searchList }}>
+<script is:inline define:vars={{ searchList }}>
   let fuse;
   let isInitialized = false; // 초기화 상태 추적
 

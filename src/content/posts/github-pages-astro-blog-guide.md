@@ -43,7 +43,7 @@ cd {본인아이디}.github.io
 npm create astro@latest . -- --template blog
 ```
 
-<h5 "mt-8 mb-0">2. 설치 과정에서 선택사항</h5>
+<h5 "mt-15 mb-0">2. 설치 과정에서 선택사항</h5>
 
 ```bash
 tmpl   How would you like to start your new project?
@@ -115,7 +115,7 @@ export default defineConfig({
 });
 ```
 
-<h5 "mt-8 mb-0"> GitHub Actions 워크플로우 추가 </h5>
+<h5 "mt-15 mb-0"> GitHub Actions 워크플로우 추가 </h5>
 
 `.github/workflows/deploy.yml` 파일을 생성하고 다음 내용을 추가합니다:
 
@@ -165,7 +165,7 @@ git commit -m "Add Astro blog"
 git push origin main
 ```
 
-<h5 "mt-8 mb-0"> GitHub Pages 활성화 </h5>
+<h5 "mt-15 mb-0"> GitHub Pages 활성화 </h5>
 
 ![GitHub Pages에서 Source를 GitHub Actions로 설정하는 방법](https://res.cloudinary.com/dofrfwdqh/image/upload/v1751632508/post-1-02.png)
 1. **GitHub 저장소**로 이동
@@ -174,7 +174,7 @@ git push origin main
    > ⚠️ "Deploy from a branch"가 아닌 **GitHub Actions**를 선택해야 합니다!
 
 
-<h5 "mt-8 mb-0"> 배포 확인 </h5>
+<h5 "mt-15 mb-0"> 배포 확인 </h5>
 
 ![GitHub Actions 배포 확인 방법](https://res.cloudinary.com/dofrfwdqh/image/upload/v1751632508/post-1/01.png)
 1. 저장소의 **Actions** 탭 클릭
@@ -192,7 +192,7 @@ git push origin main
 기본 테마가 마음에 들지 않는다면 [Astro 테마 갤러리](https://astro.build/themes/)에서 마음에 드는 테마를 선택할 수 있습니다.
 테마를 적용하려면 해당 테마의 GitHub 저장소를 클론해서 파일들을 교체하면 됩니다. 단, .github과 .git 폴더는 보존해야 합니다.
 
-<h5 "mt-8 mb-0"> 테마 적용 방법 </h5>
+<h5 "mt-15 mb-0"> 테마 적용 방법 </h5>
 
 1. 원하는 테마 클론:
 ```bash
