@@ -7,11 +7,18 @@ export interface TocItem {
 
 // 마크다운 콘텐츠에서 헤딩 추출
 export function extractHeadings(content: string): TocItem[] {
+  // 1. 코드 블록 제거 (```로 감싸진 부분)
+  const contentWithoutCodeBlocks = content.replace(/```[\s\S]*?```/g, '');
+
+  // 2. 인라인 코드 제거 (`로 감싸진 부분)  
+  const contentWithoutInlineCode = contentWithoutCodeBlocks.replace(/`[^`]*`/g, '');
+
+  // 3. 헤딩 추출
   const headingRegex = /^(#{1,6})\s+(.+)$/gm;
   const headings: TocItem[] = [];
   let match;
 
-  while ((match = headingRegex.exec(content)) !== null) {
+  while ((match = headingRegex.exec(contentWithoutInlineCode)) !== null) {
     const level = match[1].length; // # 개수로 레벨 결정
     const text = match[2].trim();
     const id = slugifyHeading(text);
