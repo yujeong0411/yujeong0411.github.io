@@ -32,7 +32,7 @@ draft: false
 
 ### 2단계: 로컬에 Astro 프로젝트 생성
 
-<h5>1. 저장소 클론 및 Astro 설치</h5>
+<h5 "mt-8 mb-0">1. 저장소 클론 및 Astro 설치</h5>
 
 ```bash
 # 저장소 클론
@@ -43,7 +43,7 @@ cd {본인아이디}.github.io
 npm create astro@latest . -- --template blog
 ```
 
-<h5>2. 설치 과정에서 선택사항</h5>
+<h5 "mt-8 mb-0">2. 설치 과정에서 선택사항</h5>
 
 ```bash
 tmpl   How would you like to start your new project?
@@ -89,7 +89,7 @@ npm run dev
 
 ### 4단계: 배포 설정
 
-<h5> astro.config.mjs 수정 </h5>
+<h5 "mt-8 mb-0"> astro.config.mjs 수정 </h5>
 
 [공식문서](https://docs.astro.build/ko/guides/deploy/github/)
 
@@ -115,7 +115,7 @@ export default defineConfig({
 });
 ```
 
-<h5> GitHub Actions 워크플로우 추가 </h5>
+<h5 "mt-8 mb-0"> GitHub Actions 워크플로우 추가 </h5>
 
 `.github/workflows/deploy.yml` 파일을 생성하고 다음 내용을 추가합니다:
 
@@ -165,18 +165,18 @@ git commit -m "Add Astro blog"
 git push origin main
 ```
 
-<h5> GitHub Pages 활성화 </h5>
+<h5 "mt-8 mb-0"> GitHub Pages 활성화 </h5>
 
-![GitHub Pages](https://res.cloudinary.com/dofrfwdqh/image/upload/v1751632508/post-1-02.png)
+![GitHub Pages에서 Source를 GitHub Actions로 설정하는 방법](https://res.cloudinary.com/dofrfwdqh/image/upload/v1751632508/post-1-02.png)
 1. **GitHub 저장소**로 이동
 2. **Settings** → **Pages** 클릭
 3. **Source**에서 **GitHub Actions** 선택
    > ⚠️ "Deploy from a branch"가 아닌 **GitHub Actions**를 선택해야 합니다!
 
 
-<h5> 배포 확인 </h5>
+<h5 "mt-8 mb-0"> 배포 확인 </h5>
 
-![배포확인](https://res.cloudinary.com/dofrfwdqh/image/upload/v1751632508/post-1/01.png)
+![GitHub Actions 배포 확인 방법](https://res.cloudinary.com/dofrfwdqh/image/upload/v1751632508/post-1/01.png)
 1. 저장소의 **Actions** 탭 클릭
 2. "Deploy to GitHub Pages" 워크플로우 상태 확인:
    - 🟡 **노란색**: 실행 중
@@ -192,7 +192,7 @@ git push origin main
 기본 테마가 마음에 들지 않는다면 [Astro 테마 갤러리](https://astro.build/themes/)에서 마음에 드는 테마를 선택할 수 있습니다.
 테마를 적용하려면 해당 테마의 GitHub 저장소를 클론해서 파일들을 교체하면 됩니다. 단, .github과 .git 폴더는 보존해야 합니다.
 
-<h5> 테마 적용 방법 </h5>
+<h5 "mt-8 mb-0"> 테마 적용 방법 </h5>
 
 1. 원하는 테마 클론:
 ```bash
