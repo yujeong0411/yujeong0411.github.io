@@ -1,0 +1,92 @@
+---
+import config from "@/config/config.json";
+import dateFormat from "@/lib/utils/dateFormat";
+import { humanize, plainify, slugify } from "@/lib/utils/textConverter";
+import { Image } from "astro:assets";
+import type { CollectionEntry } from "astro:content";
+import { BiCalendarEdit, BiCategoryAlt } from "react-icons/bi";
+
+type Props = {
+  posts: CollectionEntry<"posts">[];
+  className?: string;
+};
+
+const { summary_length } = config.settings;
+const { className, posts } = Astro.props;
+---
+
+<div class={`space-y-8 ${className}`}>
+  {
+    posts.map((post) => (
+      <article class="flex gap-4 p-4 border border-gray-200 rounded-lg hover:shadow-md transition-shadow duration-300">
+        <!-- 이미지 (왼쪽) -->
+        {post.data.image && (
+          <div class="flex-shrink-0">
+            <a
+              href={`/${post.id}`}
+              class="block overflow-hidden rounded-lg"
+            >
+              <Image
+                class="hover:scale-105 transition duration-300 object-cover"
+                src={post.data.image}
+                alt={post.data.title}
+                width={200}
+                height={130}
+              />
+            </a>
+          </div>
+        )}
+        
+        <!-- 콘텐츠 (오른쪽) -->
+        <div class="flex-1 min-w-0">
+          <!-- 메타데이터 -->
+          <ul class="mb-3 flex flex-wrap items-center gap-4 text-sm text-text">
+            <li class="flex items-center gap-1">
+              <BiCalendarEdit className="h-4 w-4 text-gray-600" />
+              <span>{dateFormat(post.data.date!)}</span>
+            </li>
+            <li class="flex items-center gap-1">
+              <BiCategoryAlt className="h-4 w-4 text-gray-600" />
+              <span>
+                {post.data.categories.map((category, i: number) => (
+                  <a
+                    href={`/categories/${slugify(category)}`}
+                    class="hover:text-primary font-medium"
+                  >
+                    {humanize(category)}
+                    {i !== post.data.categories.length - 1 && ", "}
+                  </a>
+                ))}
+              </span>
+            </li>
+          </ul>
+
+          <!-- 제목 -->
+          <h3 class="mb-3">
+            <a
+              href={`/${post.id}`}
+              class="text-xl font-bold text-dark hover:text-primary transition duration-300 line-clamp-2"
+            >
+              {post.data.title}
+            </a>
+          </h3>
+
+          <!-- 요약 -->
+          <p class="text-text leading-relaxed line-clamp-3 mb-4">
+            {plainify((post.body ?? "").slice(0, Number(summary_length * 1.5)))}...
+          </p>
+
+          <!-- 더 읽기 링크 -->
+          <div class="flex justify-end">
+            <a
+              href={`/${post.id}`}
+              class="text-primary hover:text-primary-dark font-medium text-sm"
+            >
+              Read more →
+            </a>
+          </div>
+        </div>
+      </article>
+    ))
+  }
+</div>

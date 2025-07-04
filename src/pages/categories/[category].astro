@@ -1,6 +1,6 @@
 ---
 import Base from "@/layouts/Base.astro";
-import Posts from "@/layouts/Posts.astro";
+import PostsList from "@/layouts/PostsList.astro";
 import { getSinglePage } from "@/lib/contentParser.astro";
 import { getTaxonomy } from "@/lib/taxonomyParser.astro";
 import { sortByDate } from "@/lib/utils/sortFunctions";
@@ -29,9 +29,12 @@ const title = humanize(category || "");
 <Base title={title || "Category"}>
   <div class="section">
     <div class="container">
-      <p class="text-center text-2xl mb-4">Showing Posts From</p>
-      <h1 class="h2 mb-16 text-center text-primary">{title}</h1>
-      <Posts posts={sortedPosts} fluid={false} />
+      <!-- <p class="text-center text-2xl mb-4">Showing Posts From</p> -->
+      <h1 class="h3 mb-8 text-center text-primary">{title}</h1>
+      <!-- <Posts posts={sortedPosts} fluid={false} /> -->
+
+      <!-- 리스트 형식으로 변경 -->
+      <PostsList posts={sortedPosts} />
     </div>
   </div>
 </Base>

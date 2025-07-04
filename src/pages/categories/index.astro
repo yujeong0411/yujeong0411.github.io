@@ -14,21 +14,20 @@ const totalPosts = categoriesWithCounts.reduce(
   <section class="section">
     <div class="container">
       <div class="text-center mb-12">
-        <h1 class="h2 page-heading">Categories</h1>
+        <h1 class="h2 page-heading mb-8">Categories</h1>
         <p class="text-text max-w-2xl mx-auto">
-          Explore {categoriesWithCounts.length} categories with {totalPosts} posts
-          total.
+          총 {categoriesWithCounts.length}개 카테고리, {totalPosts}개 포스트
         </p>
       </div>
 
       <div
-        class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 justify-items-center"
+        class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 justify-items-center"
       >
         {
           categoriesWithCounts.map((category) => (
             <a
               href={`/categories/${category.slug}`}
-              class="block w-full max-w-sm p-6 rounded-xl border border-border hover:border-primary transition-all duration-300 hover:shadow-lg hover:scale-105 group bg-light/50"
+              class="block w-full max-w-sm p-4 rounded-xl border border-border hover:border-primary transition-all duration-300 hover:shadow-lg hover:scale-105 group bg-light/50"
             >
               <div class="flex items-center justify-between mb-3">
                 <div class="flex items-center flex-1">
@@ -47,9 +46,9 @@ const totalPosts = categoriesWithCounts.reduce(
                 {category.count === 1 ? "1 post" : `${category.count} posts`} in
                 this category
               </p>
-              <div class="mt-3 text-primary text-sm font-medium opacity-0 group-hover:opacity-100 transition-opacity">
+              {/* <div class="mt-3 text-primary text-sm font-medium opacity-0 group-hover:opacity-100 transition-opacity">
                 View posts →
-              </div>
+              </div> */}
             </a>
           ))
         }

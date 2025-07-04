@@ -1,27 +1,33 @@
 ---
 import Base from "@/layouts/Base.astro";
-import { getTaxonomy } from "@/lib/taxonomyParser.astro";
+import { getTaxonomyWithCounts } from "@/lib/taxonomyParser.astro";
 import { humanize } from "@/lib/utils/textConverter";
 
 import { FaHashtag } from "react-icons/fa";
 
-const tags = await getTaxonomy("posts", "tags");
+const tagsWithCounts = await getTaxonomyWithCounts("posts", "tags");
+const totalPosts = tagsWithCounts.reduce((sum, tag) => sum + tag.count, 0);
 ---
 
 <Base title={"Tags"}>
   <section class="section">
     <div class="container text-center">
-      <h1 class="h2 page-heading">Tags</h1>
-      <ul class="space-x-4">
+      <h1 class="h2 page-heading mb-8">Tags</h1>
+      <p class="text-text max-w-2xl mx-auto mb-12">
+        총 {tagsWithCounts.length}개 태그, {totalPosts}개 포스트
+      </p>
+      <ul class="space-x-3 space-y-3">
         {
-          tags.map((tag) => (
+          tagsWithCounts.map((tag) => (
             <li class="inline-block">
               <a
-                href={`/tags/${tag}`}
-                class="rounded-lg bg-light px-4 py-2 text-dark transition hover:bg-primary hover:text-white flex items-center group"
+                href={`/tags/${tag.slug}`}
+                class="rounded-lg bg-gray-100 px-4 py-2 text-dark transition hover:bg-primary hover:text-white inline-flex items-center group "
               >
-                <FaHashtag className="mr-1 text-primary group-hover:text-white transition" />
-                {humanize(tag || "")}
+                <FaHashtag className="mr-2 text-primary group-hover:text-white transition text-sm" />
+                <span>
+                  {humanize(tag.name || "")} ({tag.count})
+                </span>
               </a>
             </li>
           ))
