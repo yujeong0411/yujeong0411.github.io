@@ -484,17 +484,23 @@ const searchList = posts.map((item) => ({
 
   // 페이지 변경 시 재초기화 (Astro의 view transitions 지원)
   document.addEventListener("astro:page-load", () => {
-    console.log("Page loaded, reinitializing search...");
-    isInitialized = false;
-    init();
+    console.log("페이지 전환됨, 검색 기능 재초기화...");
+
+    // 100ms 후 재초기화 (DOM이 완전히 업데이트되도록)
+    setTimeout(() => {
+      isInitialized = false;
+      init();
+    }, 100);
   });
 
   // 브라우저 뒤로가기/앞으로가기 시 재초기화
   window.addEventListener("pageshow", (event) => {
     if (event.persisted) {
-      console.log("Page restored from cache, reinitializing search...");
-      isInitialized = false;
-      init();
+      console.log("캐시에서 페이지 복원됨, 검색 기능 재초기화...");
+      setTimeout(() => {
+        isInitialized = false;
+        init();
+      }, 100);
     }
   });
 </script>
