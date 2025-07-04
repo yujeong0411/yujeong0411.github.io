@@ -120,7 +120,7 @@ const TableOfContents: React.FC<TableOfContentsProps> = ({ headings, className =
               e.preventDefault();
               scrollToHeading(heading.id);
             }}
-            className={`toc-item flex-1 py-2 px-3 rounded-lg text-sm transition-all duration-200 ${isActive
+            className={`toc-item flex-1 py-2 px-2 rounded-lg text-sm transition-all duration-200 ${isActive
               ? 'bg-primary text-white font-medium shadow-sm'
               : 'text-gray-600 hover:text-primary hover:bg-gray-50'
               }`}
@@ -216,7 +216,7 @@ const TableOfContents: React.FC<TableOfContentsProps> = ({ headings, className =
           {!isDesktopMinimized && (
             <>
               {/* 목차 리스트 */}
-              <div className="overflow-y-auto max-h-[50vh] pr-2 -mr-2 scrollbar-thin scrollbar-thumb-gray-300 scrollbar-track-transparent">
+              <div className="overflow-y-auto max-h-[30vh] pr-2 -mr-2 scrollbar-thin scrollbar-thumb-gray-300 scrollbar-track-transparent">
                 <ul className="space-y-1">
                   {headings.map(heading => renderHeading(heading))}
                 </ul>

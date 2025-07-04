@@ -93,14 +93,6 @@ if (enable_toc) {
               ))
             }
           </ul>
-
-          <!-- {/* 공유 기능 */}
-          <Share
-            className="social-share mb-4"
-            title={title}
-            description={description}
-            slug={post.id}
-          /> -->
         </div>
       </div>
     </article>
@@ -113,30 +105,6 @@ if (enable_toc) {
     }
   </div>
 </section>
-
-<!-- 🆕 헤딩에 자동으로 ID 추가하는 스크립트 -->
-<!-- {enable_toc && (
-  <script>
-    document.addEventListener('DOMContentLoaded', function() {
-      const content = document.getElementById('post-content');
-      if (!content) return;
-
-      const headings = content.querySelectorAll('h1, h2, h3, h4, h5, h6');
-
-      headings.forEach((heading, index) => {
-        if (!heading.id) {
-          const id = `heading-${index}`;
-          heading.id = id;
-          console.log(`Set heading ${index}: "${heading.textContent}" -> ID: ${id}`);
-        } else {
-          console.log(`Heading ${index} already has ID: ${heading.id}`);
-        }
-      });
-      
-      console.log('All headings processed:', headings.length);
-    });
-  </script>
-)} -->
 
 <!-- similar posts -->
 {
