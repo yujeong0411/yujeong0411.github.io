@@ -2,7 +2,7 @@
 title: "GitHub Pages와 Astro로 블로그 만들기 가이드"
 meta_title: "GitHub Pages Astro 블로그 만들기"
 description: "GitHub Pages와 Astro를 사용해서 무료로 개인 블로그를 만드는 방법을 단계별로 설명합니다. 저장소 생성부터 배포, 테마 적용까지 완벽 가이드."
-date: 2025-07-04
+date: 2025-07-02
 image: "https://res.cloudinary.com/dofrfwdqh/image/upload/v1751632956/post-1-thumbnail.png"
 categories: ["development", "tutorial"]
 tags: ["github-pages", "astro", "blog", "tutorial", "deployment"]

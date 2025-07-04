@@ -153,18 +153,24 @@ const searchList = posts.map((item) => ({
   let isInitialized = false; // 초기화 상태 추적
 
   // DOM 요소들
-  let searchInput, searchButton, searchResults, searchResultsContent;
+  let searchInput,
+    searchButton,
+    searchToggle,
+    searchResults,
+    searchResultsContent;
 
   // DOM 요소 다시 가져오기
   function getElements() {
     searchInput = document.getElementById("search-input");
     searchButton = document.getElementById("search-button");
+    searchToggle = document.getElementById("search-toggle");
     searchResults = document.getElementById("search-results");
     searchResultsContent = document.getElementById("search-results-content");
 
     console.log("DOM elements:", {
       searchInput: !!searchInput,
       searchButton: !!searchButton,
+      searchToggle: !!searchToggle,
       searchResults: !!searchResults,
       searchResultsContent: !!searchResultsContent,
       searchListLength: searchList?.length,
@@ -266,6 +272,29 @@ const searchList = posts.map((item) => ({
     searchResults.classList.add("hidden");
   }
 
+  // 모바일 검색 토클 클릭
+  function handleToggleClick(e) {
+    e.preventDefault();
+    console.log("📱 모바일 검색 토글 클릭!");
+
+    if (!searchInput) return;
+
+    const isOpen = !searchInput.classList.contains("w-0");
+
+    if (isOpen) {
+      // 닫기
+      searchInput.classList.remove("w-60", "opacity-100");
+      searchInput.classList.add("w-0", "opacity-0");
+      searchInput.blur();
+      hideSearchResults();
+    } else {
+      // 열기
+      searchInput.classList.remove("w-0", "opacity-0");
+      searchInput.classList.add("w-60", "opacity-100");
+      setTimeout(() => searchInput.focus(), 100);
+    }
+  }
+
   // 드롭다운 토글 함수
   function toggleDropdown(index) {
     const dropdown = document.getElementById(`dropdown-${index}`);
@@ -311,6 +340,9 @@ const searchList = posts.map((item) => ({
       searchInput.removeEventListener("keydown", handleSearchKeydown);
       searchInput.removeEventListener("input", handleSearchInput);
       searchInput.removeEventListener("focus", handleSearchFocus);
+    }
+    if (searchToggle) {
+      searchToggle.removeEventListener("click", handleToggleClick);
     }
     if (searchResults) {
       searchResults.removeEventListener("click", handleResultsClick);
@@ -391,6 +423,7 @@ const searchList = posts.map((item) => ({
     const isSearchArea =
       e.target.closest("#search-input") ||
       e.target.closest("#search-button") ||
+      e.target.closest("#search-toggle") ||
       e.target.closest("#search-results");
 
     if (!isSearchArea) {
@@ -421,6 +454,11 @@ const searchList = posts.map((item) => ({
       searchInput.addEventListener("keydown", handleSearchKeydown);
       searchInput.addEventListener("input", handleSearchInput);
       searchInput.addEventListener("focus", handleSearchFocus);
+    }
+
+    if (searchToggle) {
+      searchToggle.addEventListener("click", handleToggleClick);
+      console.log("모바일 토글 이벤트 등록됨");
     }
 
     if (searchResults) {
@@ -454,25 +492,25 @@ const searchList = posts.map((item) => ({
     console.log("Search functionality ready");
   }
 
-  // 모바일 검색창 토글 기능 추가
-  const toggleBtn = document.getElementById("search-toggle");
-  const input = document.getElementById("search-input");
+  // // 모바일 검색창 토글 기능 추가
+  // const toggleBtn = document.getElementById("search-toggle");
+  // const input = document.getElementById("search-input");
 
-  let isOpen = false;
+  // let isOpen = false;
 
-  // 모바일에서 버튼 클릭 시
-  toggleBtn?.addEventListener("click", () => {
-    isOpen = !isOpen;
-    if (isOpen) {
-      input.classList.remove("w-0", "opacity-0");
-      input.classList.add("w-60", "opacity-100");
-      input.focus();
-    } else {
-      input.classList.remove("w-60", "opacity-100");
-      input.classList.add("w-0", "opacity-0");
-      input.blur();
-    }
-  });
+  // // 모바일에서 버튼 클릭 시
+  // toggleBtn?.addEventListener("click", () => {
+  //   isOpen = !isOpen;
+  //   if (isOpen) {
+  //     input.classList.remove("w-0", "opacity-0");
+  //     input.classList.add("w-60", "opacity-100");
+  //     input.focus();
+  //   } else {
+  //     input.classList.remove("w-60", "opacity-100");
+  //     input.classList.add("w-0", "opacity-0");
+  //     input.blur();
+  //   }
+  // });
 
   // 페이지 로드 시 초기화
   if (document.readyState === "loading") {

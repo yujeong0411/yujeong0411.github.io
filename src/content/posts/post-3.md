@@ -1,11 +1,11 @@
 ---
-title: What you need to know about Photography
+title: SQL 기본 분법
 meta_title: ""
 description: "meta description"
-date: 2022-04-03T06:00:00+00:00
+date: 2025-07-04
 image: "/images/posts/03.jpg"
-categories: ["art"]
-tags: ["diy", "toy"]
+categories: ["SQL"]
+tags: ["코딩테스트", "SQL", "데이터"]
 draft: false
 ---
 
