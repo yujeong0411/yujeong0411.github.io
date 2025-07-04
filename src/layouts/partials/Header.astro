@@ -492,26 +492,6 @@ const searchList = posts.map((item) => ({
     console.log("Search functionality ready");
   }
 
-  // // 모바일 검색창 토글 기능 추가
-  // const toggleBtn = document.getElementById("search-toggle");
-  // const input = document.getElementById("search-input");
-
-  // let isOpen = false;
-
-  // // 모바일에서 버튼 클릭 시
-  // toggleBtn?.addEventListener("click", () => {
-  //   isOpen = !isOpen;
-  //   if (isOpen) {
-  //     input.classList.remove("w-0", "opacity-0");
-  //     input.classList.add("w-60", "opacity-100");
-  //     input.focus();
-  //   } else {
-  //     input.classList.remove("w-60", "opacity-100");
-  //     input.classList.add("w-0", "opacity-0");
-  //     input.blur();
-  //   }
-  // });
-
   // 페이지 로드 시 초기화
   if (document.readyState === "loading") {
     document.addEventListener("DOMContentLoaded", init);
@@ -524,21 +504,17 @@ const searchList = posts.map((item) => ({
   document.addEventListener("astro:page-load", () => {
     console.log("페이지 전환됨, 검색 기능 재초기화...");
 
-    // 100ms 후 재초기화 (DOM이 완전히 업데이트되도록)
-    setTimeout(() => {
-      isInitialized = false;
-      init();
-    }, 100);
+    isInitialized = false;
+    init();
   });
 
   // 브라우저 뒤로가기/앞으로가기 시 재초기화
   window.addEventListener("pageshow", (event) => {
     if (event.persisted) {
       console.log("캐시에서 페이지 복원됨, 검색 기능 재초기화...");
-      setTimeout(() => {
-        isInitialized = false;
-        init();
-      }, 100);
+
+      isInitialized = false;
+      init();
     }
   });
 </script>
