@@ -19,11 +19,11 @@ const { title, description, meta_title, image } = entry.data;
 >
   <section class="section">
     <div class="container">
-      <h1 set:html={markdownify(title)} class="h2 page-heading" />
+      <h1 set:html={markdownify(title)} class="h2 page-heading mb-8" />
 
       <div class="row justify-center">
         <!-- 인사말 -->
-        <div class="text-center mb-12">
+        <div class="text-center mb-10">
           <p class="text-xl text-text-dark mb-4">
             {blog_description}
           </p>
