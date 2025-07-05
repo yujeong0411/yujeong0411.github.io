@@ -15,29 +15,29 @@ const { summary_length } = config.settings;
 const { className, posts } = Astro.props;
 ---
 
-<div class={`space-y-8 ${className}`}>
+<div class={`grid grid-cols-1 sm:grid-cols-2 md:grid-cols-1 gap-6 ${className}`}>
   {
     posts.map((post) => (
-      <article class="flex gap-4 p-4 border border-gray-200 rounded-lg hover:shadow-md transition-shadow duration-300">
-        <!-- 이미지 (왼쪽) -->
+      <article class="flex flex-col md:flex-row gap-4 p-4 border border-gray-200 rounded-lg hover:shadow-md transition-shadow duration-300">
+        <!-- 이미지 -->
         {post.data.image && (
-          <div class="flex-shrink-0">
+          <div class="w-full md:max-w-50 md:flex-shrink-0">
             <a
               href={`/${post.id.replace(/^\d{4}-\d{2}-\d{2}-/, "").replace(/\.(md|mdx)$/, "")}`}
               class="block overflow-hidden rounded-lg"
             >
               <Image
-                class="hover:scale-105 transition duration-300 object-cover"
+                class="hover:scale-105 transition duration-300 object-fit w-full md:min-h-33"
                 src={post.data.image}
                 alt={post.data.title}
-                width={200}
-                height={130}
+                width={400}
+                height={200}
               />
             </a>
           </div>
         )}
         
-        <!-- 콘텐츠 (오른쪽) -->
+        <!-- 콘텐츠 -->
         <div class="flex-1 min-w-0">
           <!-- 메타데이터 -->
           <ul class="mb-3 flex flex-wrap items-center gap-4 text-sm text-text">
