@@ -8,6 +8,7 @@ import Header from "@/partials/Header.astro";
 import "@/styles/main.css";
 import { AstroFont } from "astro-font";
 import { ClientRouter } from "astro:transitions";
+import ScrollToTopButton from "@/components/ScrollToTopButton";
 
 // font families
 const pf = theme.fonts.font_family.primary;
@@ -181,5 +182,12 @@ const { title, meta_title, description, image, noindex, canonical } =
       <slot />
     </main>
     <Footer />
+
+    <!-- 모든 페이지에서 사용할 수 있는 맨 위로 가기 버튼 -->
+    <ScrollToTopButton
+      variant="rounded"
+      position="responsive-right-center"
+      client:load
+    />
   </body>
 </html>
