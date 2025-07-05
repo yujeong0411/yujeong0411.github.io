@@ -18,7 +18,7 @@ const { className, posts } = Astro.props;
 <div class={`grid grid-cols-1 sm:grid-cols-2 md:grid-cols-1 gap-6 ${className}`}>
   {
     posts.map((post) => (
-      <article class="flex flex-col md:flex-row gap-4 p-4 border border-gray-200 rounded-lg hover:shadow-md transition-shadow duration-300">
+      <article class="post-list-card flex flex-col md:flex-row gap-4 p-4 border border-gray-200 rounded-lg hover:shadow-md transition-shadow duration-300">
         <!-- 이미지 -->
         {post.data.image && (
           <div class="w-full md:max-w-50 md:flex-shrink-0">
@@ -27,7 +27,7 @@ const { className, posts } = Astro.props;
               class="block overflow-hidden rounded-lg"
             >
               <Image
-                class="hover:scale-105 transition duration-300 object-fit w-full md:min-h-33"
+                class="transition duration-300 object-fit w-full md:min-h-33"
                 src={post.data.image}
                 alt={post.data.title}
                 width={400}

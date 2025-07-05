@@ -11,7 +11,7 @@
     "logo_text": "Yj.log"
   },
   "settings": {
-    "pagination": 6,
+    "pagination": 5,
     "summary_length": 80,
     "blog_folder": "posts"
   },

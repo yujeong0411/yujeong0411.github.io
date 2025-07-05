@@ -237,3 +237,38 @@ footer p a {
   backdrop-filter: blur(4px);
   -webkit-backdrop-filter: blur(4px);
 }
+
+.post-list-card:hover {
+  transform: translateY(-2px);  /* 살짝 위로 뜨기 */
+  transition: transform 0.3s ease;
+}
+
+
+/* index */
+.line-clamp-2 {
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  .line-clamp-3 {
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  .category-card:hover {
+    transform: translateY(-2px);
+    transition: transform 0.3s ease;
+  }
+
+  .post-card:hover {
+    transform: translateY(-2px);
+    transition: transform 0.3s ease;
+  }
+
+  .aspect-video {
+    aspect-ratio: 16 / 9;
+  }
