@@ -18,7 +18,7 @@ const { className, posts } = Astro.props;
 <div class={`grid grid-cols-1 sm:grid-cols-2 md:grid-cols-1 gap-6 ${className}`}>
   {
     posts.map((post) => (
-      <article class="post-list-card flex flex-col md:flex-row gap-4 p-4 border border-gray-200 rounded-lg hover:shadow-md transition-shadow duration-300">
+      <article class="post-list-card group flex flex-col md:flex-row gap-4 p-4 border border-gray-200 rounded-lg hover:shadow-md transition-shadow duration-300">
         <!-- 이미지 -->
         {post.data.image && (
           <div class="w-full md:max-w-50 md:flex-shrink-0">
@@ -40,7 +40,7 @@ const { className, posts } = Astro.props;
         <!-- 콘텐츠 -->
         <div class="flex-1 min-w-0">
           <!-- 메타데이터 -->
-          <ul class="mb-3 flex flex-wrap items-center gap-4 text-sm text-text">
+          <ul class="mb-3 flex flex-wrap items-center gap-4 text-sm">
             <li class="flex items-center gap-1">
               <BiCalendarEdit className="h-4 w-4 text-gray-600" />
               <span>{dateFormat(post.data.date!)}</span>
@@ -65,7 +65,7 @@ const { className, posts } = Astro.props;
           <h3 class="mb-3">
             <a
               href={`/${post.id.replace(/^\d{4}-\d{2}-\d{2}-/, "").replace(/\.(md|mdx)$/, "")}`}
-              class="text-xl font-bold text-dark hover:text-primary transition duration-300 line-clamp-2"
+              class="text-xl font-bold text-dark group-hover:text-primary transition duration-300 line-clamp-2"
             >
               {post.data.title}
             </a>
