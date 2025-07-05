@@ -34,13 +34,27 @@ export default function SearchBar({ searchList }: Props) {
     setInputVal(e.currentTarget.value);
   };
 
+  // Enter 키 처리 추가
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === 'Enter') {
+      e.preventDefault();
+      const query = inputVal.trim();
+      if (query.length >= 1 && fuse) {  // 1글자부터 검색
+        const results = fuse.search(query);
+        setSearchResults(results);
+      }
+    }
+  };
+
   // Fuse.js 초기화
   useEffect(() => {
     const fuseInstance = new Fuse(searchList, {
       keys: ["data.title", "data.categories", "data.tags", "content"],
       includeMatches: true,
-      minMatchCharLength: 2,
-      threshold: 0.5,
+      minMatchCharLength: 2,  // 1글자부터 매칭
+      threshold: 0.3,         // 더 관대한 매칭
+      ignoreLocation: true,   // 위치 무시
+      findAllMatches: true,   // 모든 매칭 찾기
     });
     setFuse(fuseInstance);
   }, [searchList]);
@@ -67,7 +81,9 @@ export default function SearchBar({ searchList }: Props) {
   useEffect(() => {
     if (!fuse) return;
 
-    let inputResult = inputVal.length > 2 ? fuse.search(inputVal) : [];
+    // 2글자 이상이면 검색
+    let inputResult = inputVal.length > 1 ? fuse.search(inputVal) : [];
+
     setSearchResults(inputResult);
 
     // URL 업데이트
@@ -93,6 +109,7 @@ export default function SearchBar({ searchList }: Props) {
         name="search"
         value={inputVal}
         onChange={handleChange}
+        onKeyDown={handleKeyDown}
         autoComplete="off"
         autoFocus
         ref={inputRef}

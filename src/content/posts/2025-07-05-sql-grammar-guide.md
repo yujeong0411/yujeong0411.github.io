@@ -10,7 +10,7 @@ draft: false
 ---
 > **SQL 코딩 테스트 완전 정복 시리즈**
 > 
-> 📌 [1편: SQL 코딩 테스트 벼락치기](/sql-codeing-test) ← 여기에 실제 파일명 입력  
+> 📌 [1편: SQL 코딩 테스트 벼락치기](/sql-codeing-test) 
 > 📖 **2편: SQL 기본 문법 실전 가이드** (현재 글)  
 > 🚀 3편: SQL 코딩테스트 실전 문제 풀이 (coming soon)
 

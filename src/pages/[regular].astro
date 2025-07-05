@@ -13,12 +13,20 @@ export async function getStaticPaths() {
   const pages = await getSinglePage("pages");
   const allPages = [...pages, ...posts];
 
-  const paths = allPages.map((page) => ({
-    params: {
-      regular: page.id.replace(/\.(md|mdx)$/, ""),
-    },
-    props: { page },
-  }));
+  const paths = allPages.map((page) => {
+    const originalId = page.id;
+    const cleanedId = page.id
+      .replace(/^\d{4}-\d{2}-\d{2}-/, "")
+      .replace(/\.(md|mdx)$/, "");
+
+    return {
+      params: {
+        regular: cleanedId,
+      },
+      props: { page },
+    };
+  });
+
   return paths;
 }
 

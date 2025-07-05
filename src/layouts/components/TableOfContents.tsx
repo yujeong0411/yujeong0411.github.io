@@ -63,8 +63,6 @@ const TableOfContents: React.FC<TableOfContentsProps> = ({ headings, className =
 
   // 헤딩 클릭 시 스무스 스크롤
   const scrollToHeading = (id: string) => {
-    console.log('Trying to scroll to ID:', id);
-
     const decodedId = decodeURIComponent(id);
     const element = document.getElementById(decodedId);
     if (element) {
@@ -75,7 +73,6 @@ const TableOfContents: React.FC<TableOfContentsProps> = ({ headings, className =
         top: y,
         behavior: 'smooth'
       });
-      console.log('Successfully scrolled to:', element.textContent);
     } else {
       console.warn('Element not found for ID:', decodedId);
     }

@@ -21,7 +21,7 @@ const { main }: { main: NavigationLink[] } = menu;
 // 검색을 위한 포스트 데이터 가져오기
 const posts = await getSinglePage("posts");
 const searchList = posts.map((item) => ({
-  slug: item.id,
+  slug: item.id.replace(/^\d{4}-\d{2}-\d{2}-/, "").replace(/\.(md|mdx)$/, ""),
   data: item.data,
   content: item.body,
 }));
@@ -100,14 +100,14 @@ const searchList = posts.map((item) => ({
 
     <!-- 검색창 -->
     <div class="order-1 ml-auto flex items-center md:order-2 md:ml-4 relative">
-      <!-- 모바일 전용 검색 아이콘 -->
-      <button
-        id="search-toggle"
-        class="block lg:hidden p-2 text-gray-600 hover:text-primary"
-        aria-label="검색 열기"
+      <!-- 모바일: 검색 페이지로 이동 -->
+      <a
+        href="/search"
+        class="block lg:hidden p-2 text-gray-600 hover:text-primary transition-colors duration-200"
+        aria-label="검색 페이지로 이동"
       >
         <IoSearch className="w-5 h-5" />
-      </button>
+      </a>
 
       <!-- 검색 입력창 (반응형) -->
       <input
@@ -155,7 +155,7 @@ const searchList = posts.map((item) => ({
   // DOM 요소들
   let searchInput,
     searchButton,
-    searchToggle,
+    // searchToggle,
     searchResults,
     searchResultsContent;
 
@@ -163,18 +163,8 @@ const searchList = posts.map((item) => ({
   function getElements() {
     searchInput = document.getElementById("search-input");
     searchButton = document.getElementById("search-button");
-    searchToggle = document.getElementById("search-toggle");
     searchResults = document.getElementById("search-results");
     searchResultsContent = document.getElementById("search-results-content");
-
-    console.log("DOM elements:", {
-      searchInput: !!searchInput,
-      searchButton: !!searchButton,
-      searchToggle: !!searchToggle,
-      searchResults: !!searchResults,
-      searchResultsContent: !!searchResultsContent,
-      searchListLength: searchList?.length,
-    });
   }
 
   // Fuse.js 동적 로드 및 초기화
@@ -182,7 +172,6 @@ const searchList = posts.map((item) => ({
     if (isInitialized) return;
 
     try {
-      console.log("Initializing search...");
       const module = await import("https://cdn.skypack.dev/fuse.js@6.6.2");
       const Fuse = module.default;
 
@@ -194,7 +183,6 @@ const searchList = posts.map((item) => ({
       });
 
       isInitialized = true;
-      console.log("Search initialized successfully");
     } catch (error) {
       console.error("Failed to load Fuse.js:", error);
     }
@@ -210,7 +198,7 @@ const searchList = posts.map((item) => ({
     }
 
     const results = fuse.search(query);
-    console.log("Search results:", results.length);
+
     displaySearchResults(results, query);
   }
 
@@ -272,29 +260,6 @@ const searchList = posts.map((item) => ({
     searchResults.classList.add("hidden");
   }
 
-  // 모바일 검색 토클 클릭
-  function handleToggleClick(e) {
-    e.preventDefault();
-    console.log("📱 모바일 검색 토글 클릭!");
-
-    if (!searchInput) return;
-
-    const isOpen = !searchInput.classList.contains("w-0");
-
-    if (isOpen) {
-      // 닫기
-      searchInput.classList.remove("w-60", "opacity-100");
-      searchInput.classList.add("w-0", "opacity-0");
-      searchInput.blur();
-      hideSearchResults();
-    } else {
-      // 열기
-      searchInput.classList.remove("w-0", "opacity-0");
-      searchInput.classList.add("w-60", "opacity-100");
-      setTimeout(() => searchInput.focus(), 100);
-    }
-  }
-
   // 드롭다운 토글 함수
   function toggleDropdown(index) {
     const dropdown = document.getElementById(`dropdown-${index}`);
@@ -341,9 +306,9 @@ const searchList = posts.map((item) => ({
       searchInput.removeEventListener("input", handleSearchInput);
       searchInput.removeEventListener("focus", handleSearchFocus);
     }
-    if (searchToggle) {
-      searchToggle.removeEventListener("click", handleToggleClick);
-    }
+    // if (searchToggle) {
+    //   searchToggle.removeEventListener("click", handleToggleClick);
+    // }
     if (searchResults) {
       searchResults.removeEventListener("click", handleResultsClick);
     }
@@ -454,11 +419,6 @@ const searchList = posts.map((item) => ({
       searchInput.addEventListener("keydown", handleSearchKeydown);
       searchInput.addEventListener("input", handleSearchInput);
       searchInput.addEventListener("focus", handleSearchFocus);
-    }
-
-    if (searchToggle) {
-      searchToggle.addEventListener("click", handleToggleClick);
-      console.log("모바일 토글 이벤트 등록됨");
     }
 
     if (searchResults) {

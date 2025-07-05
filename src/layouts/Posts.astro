@@ -25,8 +25,8 @@ const { className, posts, fluid } = Astro.props;
       <div class={i < 2 ? "col-12 sm:col-6" : "col-12 sm:col-6 md:col-4"}>
         {post.data.image && (
           <a
-            href={`/${post.id}`}
-            class="rounded-lg block hover:text-primary overflow-hidden group"
+            href={`/${post.id.replace(/^\d{4}-\d{2}-\d{2}-/, "").replace(/\.(md|mdx)$/, "")}`}
+            class="block hover:text-primary transition duration-300"
           >
             <Image
               class="group-hover:scale-[1.03] transition duration-300 w-full"
@@ -62,7 +62,7 @@ const { className, posts, fluid } = Astro.props;
         </ul>
         <h5 class="mb-4">
           <a
-            href={`/${post.id}`}
+            href={`/${post.id.replace(/^\d{4}-\d{2}-\d{2}-/, "").replace(/\.(md|mdx)$/, "")}`}
             class="block hover:text-primary transition duration-300"
           >
             {post.data.title}

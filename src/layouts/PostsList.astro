@@ -23,7 +23,7 @@ const { className, posts } = Astro.props;
         {post.data.image && (
           <div class="flex-shrink-0">
             <a
-              href={`/${post.id}`}
+              href={`/${post.id.replace(/^\d{4}-\d{2}-\d{2}-/, "").replace(/\.(md|mdx)$/, "")}`}
               class="block overflow-hidden rounded-lg"
             >
               <Image
@@ -64,7 +64,7 @@ const { className, posts } = Astro.props;
           <!-- 제목 -->
           <h3 class="mb-3">
             <a
-              href={`/${post.id}`}
+              href={`/${post.id.replace(/^\d{4}-\d{2}-\d{2}-/, "").replace(/\.(md|mdx)$/, "")}`}
               class="text-xl font-bold text-dark hover:text-primary transition duration-300 line-clamp-2"
             >
               {post.data.title}
@@ -79,7 +79,7 @@ const { className, posts } = Astro.props;
           <!-- 더 읽기 링크 -->
           <div class="flex justify-end">
             <a
-              href={`/${post.id}`}
+              href={`/${post.id.replace(/^\d{4}-\d{2}-\d{2}-/, "").replace(/\.(md|mdx)$/, "")}`}
               class="text-primary hover:text-primary-dark font-medium text-sm"
             >
               Read more →

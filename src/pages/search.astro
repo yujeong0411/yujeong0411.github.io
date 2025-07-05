@@ -8,7 +8,7 @@ const posts = await getSinglePage("posts");
 
 // List of items to search in
 const searchList = posts.map((item) => ({
-  slug: item.id,
+  slug: item.id.replace(/^\d{4}-\d{2}-\d{2}-/, "").replace(/\.(md|mdx)$/, ""),
   data: item.data,
   content: item.body,
 }));
