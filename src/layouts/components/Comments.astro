@@ -1,0 +1,148 @@
+---
+export interface Props {
+  theme?: "light" | "dark" | "preferred_color_scheme";
+}
+
+const { theme = "preferred_color_scheme" } = Astro.props;
+---
+
+<div id="comments" class="mt-12 pt-8 border-t border-border">
+  <!-- <h3 class="text-xl font-bold mb-6 text-dark">💬 댓글</h3> -->
+
+  <!-- 로딩 표시 -->
+  <div id="giscus-loading" class="text-center py-8 text-text">
+    <div
+      class="inline-block animate-spin rounded-full h-6 w-6 border-b-2 border-primary"
+    >
+    </div>
+    <p class="mt-2 text-sm">댓글을 불러오는 중...</p>
+  </div>
+
+  <!-- Giscus 컨테이너 -->
+  <div id="giscus-container"></div>
+</div>
+
+<script define:vars={{ theme }}>
+  function loadGiscus() {
+    // 기존 스크립트 제거 (페이지 전환 대응)
+    const existingScript = document.getElementById("giscus-script");
+    if (existingScript) {
+      existingScript.remove();
+    }
+
+    // 컨테이너 초기화
+    const container = document.getElementById("giscus-container");
+    if (!container) return;
+    container.innerHTML = "";
+
+    // Giscus 스크립트 생성
+    const script = document.createElement("script");
+    script.id = "giscus-script";
+    script.src = "https://giscus.app/client.js";
+
+    // 🔧 giscus.app에서 생성된 실제 설정값 적용!
+    script.setAttribute("data-repo", "yujeong0411/yujeong0411.github.io");
+    script.setAttribute("data-repo-id", "R_kgDOPEzrog");
+    script.setAttribute("data-category", "General");
+    script.setAttribute("data-category-id", "DIC_kwDOPEzros4CsgEi");
+    script.setAttribute("data-mapping", "pathname");
+    script.setAttribute("data-strict", "0");
+    script.setAttribute("data-reactions-enabled", "1");
+    script.setAttribute("data-emit-metadata", "1");
+    script.setAttribute("data-input-position", "top");
+    script.setAttribute("data-theme", theme);
+    script.setAttribute("data-lang", "ko");
+    script.setAttribute("data-loading", "lazy");
+    script.crossOrigin = "anonymous";
+    script.async = true;
+
+    // 로딩 완료 처리
+    script.onload = function () {
+      const loading = document.getElementById("giscus-loading");
+      if (loading) {
+        loading.style.display = "none";
+      }
+    };
+
+    // 에러 처리
+    script.onerror = function () {
+      const loading = document.getElementById("giscus-loading");
+      if (loading) {
+        loading.innerHTML =
+          '<p class="text-red-500">댓글을 불러오는데 실패했습니다.</p>';
+      }
+    };
+
+    container.appendChild(script);
+  }
+
+  // 초기 로드
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", loadGiscus);
+  } else {
+    loadGiscus();
+  }
+
+  // Astro 페이지 전환 대응
+  document.addEventListener("astro:page-load", () => {
+    const loading = document.getElementById("giscus-loading");
+    if (loading) {
+      loading.style.display = "block";
+    }
+
+    // 약간의 지연 후 로드 (DOM 안정화)
+    setTimeout(loadGiscus, 100);
+  });
+
+  // 테마 변경 대응 (선택사항)
+  document.addEventListener("theme-change", (e) => {
+    const iframe = document.querySelector('iframe[title="Comments"]');
+    if (iframe) {
+      iframe.contentWindow.postMessage(
+        { giscus: { setConfig: { theme: e.detail.theme } } },
+        "https://giscus.app",
+      );
+    }
+  });
+</script>
+
+<style>
+  #comments {
+    max-width: 100%;
+  }
+
+  /* 로딩 애니메이션 */
+  @keyframes spin {
+    to {
+      transform: rotate(360deg);
+    }
+  }
+
+  .animate-spin {
+    animation: spin 1s linear infinite;
+  }
+
+  /* Giscus iframe 스타일링 */
+  :global(.giscus-frame) {
+    width: 100% !important;
+    border: none !important;
+    color-scheme: auto;
+  }
+
+  /* 댓글 섹션 전체 스타일 */
+  #giscus-container {
+    min-height: 200px;
+  }
+
+  /* 반응형 대응 */
+  @media (max-width: 768px) {
+    #comments {
+      margin-top: 2rem;
+      padding-top: 2rem;
+    }
+
+    #comments h3 {
+      font-size: 1.25rem;
+    }
+  }
+</style>

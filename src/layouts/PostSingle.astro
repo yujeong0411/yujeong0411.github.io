@@ -11,6 +11,7 @@ import { BiCalendarEdit, BiCategoryAlt } from "react-icons/bi";
 import { extractHeadings } from "@/lib/utils/tocFunctions";
 import TableOfContents from "@/layouts/components/TableOfContents";
 import config from "@/config/config.json";
+import Comments from "@/components/Comments.astro";
 
 const posts = await getSinglePage("posts");
 const { post } = Astro.props;
@@ -96,6 +97,13 @@ if (enable_toc) {
         </div>
       </div>
     </article>
+
+    <!-- 댓글 섹션 추가 -->
+    <div class="row justify-center">
+      <div class="md:col-10">
+        <Comments />
+      </div>
+    </div>
 
     <!-- TOC 컴포넌트 추가 -->
     {

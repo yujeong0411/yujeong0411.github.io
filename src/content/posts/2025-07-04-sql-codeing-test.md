@@ -13,7 +13,7 @@ draft: false
 > 
 > 📌 **1편: SQL 코딩 테스트 벼락치기** (현재 글) <br/>
 > 📖 [2편: SQL 기본 문법 실전 가이드](/sql-grammar-guide)  
-> 🚀 3편: SQL 코딩테스트 실전 문제 풀이 (coming soon)
+> 🚀 [3편: SQL 코딩테스트 실전 문제 풀이](/sql-coding-test-practice)
 
 ## SQL 코딩 테스트?
 데이터 분석 직무의 코딩테스트에서는 알고리즘 대신 SQL을 다룹니다. 알고리즘 코딩테스트만 준비해온 저에게는 생소한 영역이었습니다. <br />
