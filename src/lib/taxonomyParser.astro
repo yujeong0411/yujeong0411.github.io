@@ -31,7 +31,7 @@ export const getAllTaxonomy = async (collection: any, name: string) => {
   return taxonomies;
 };
 
-// 🆕 get taxonomy with post counts
+// get taxonomy with post counts
 export const getTaxonomyWithCounts = async (collection: any, name: string) => {
   const singlePages = await getSinglePage(collection);
   const taxonomyCount: {
