@@ -34,8 +34,10 @@ const totalPosts = categoriesWithPosts.reduce((sum, cat) => sum + cat.count, 0);
   <section class="section">
     <div class="container">
       <div class="text-center mb-12">
-        <h1 class="h2 page-heading mb-8">Categories</h1>
-        <p class="text-text max-w-2xl mx-auto">
+        <h1 class="h2 page-heading mb-8 text-dark dark:text-darkmode-dark">
+          Categories
+        </h1>
+        <p class="text-text dark:text-darkmode-text max-w-2xl mx-auto">
           총 {categoriesWithPosts.length}개 카테고리, {totalPosts}개 포스트
         </p>
       </div>
@@ -45,15 +47,15 @@ const totalPosts = categoriesWithPosts.reduce((sum, cat) => sum + cat.count, 0);
       >
         {
           categoriesWithPosts.map((category) => (
-            <div class="w-full max-w-sm p-4 rounded-xl border border-border hover:border-primary transition-all duration-300 hover:shadow-lg group bg-light/50">
+            <div class="w-full max-w-sm p-4 rounded-xl border border-border dark:border-darkmode-border hover:border-primary transition-all duration-300 hover:shadow-lg dark:hover:shadow-darkmode-border/20 group bg-light/50 dark:bg-darkmode-light/50">
               {/* 카테고리 헤더 - 클릭 시 카테고리 페이지로 */}
               <a href={`/categories/${category.slug}`} class="block">
                 <div class="flex items-center justify-between mb-4 group-hover:scale-105 transition-transform">
                   <div class="flex items-center flex-1">
-                    <div class="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center mr-4 group-hover:bg-primary/20 transition-colors">
+                    <div class="w-12 h-12 rounded-lg bg-primary/10 dark:bg-primary/20 flex items-center justify-center mr-4 group-hover:bg-primary/20 dark:group-hover:bg-primary/30 transition-colors">
                       <BiCategoryAlt className="text-xl text-primary" />
                     </div>
-                    <h3 class="font-semibold text-dark group-hover:text-primary transition-colors text-lg">
+                    <h3 class="font-semibold text-dark dark:text-darkmode-dark group-hover:text-primary dark:group-hover:text-primary transition-colors text-lg">
                       {category.name}
                     </h3>
                   </div>
@@ -68,7 +70,7 @@ const totalPosts = categoriesWithPosts.reduce((sum, cat) => sum + cat.count, 0);
                 {category.recentPosts.map((post, index) => (
                   <a
                     href={`/${post.id.replace(/^\d{4}-\d{2}-\d{2}-/, "").replace(/\.(md|mdx)$/, "")}`}
-                    class="block text-sm text-text hover:text-primary transition-colors py-1 px-2 hover:bg-primary/5 rounded"
+                    class="block text-sm text-text dark:text-darkmode-text hover:text-primary dark:hover:text-primary transition-colors py-1 px-2 hover:bg-primary/5 dark:hover:bg-primary/15 rounded"
                     title={post.data.title}
                   >
                     <span class="line-clamp-1">{post.data.title}</span>
@@ -79,7 +81,7 @@ const totalPosts = categoriesWithPosts.reduce((sum, cat) => sum + cat.count, 0);
                 {category.count > 2 && (
                   <a
                     href={`/categories/${category.slug}`}
-                    class="block text-xs text-primary/70 hover:text-primary transition-colors py-1 px-2 hover:bg-primary/5 rounded"
+                    class="block text-xs text-primary/70 hover:text-primary transition-colors py-1 px-2 hover:bg-primary/5 dark:hover:bg-primary/10 rounded"
                   >
                     +{category.count - 2}개 더 보기 →
                   </a>

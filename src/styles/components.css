@@ -8,9 +8,9 @@
   @apply max-w-[1200px]! px-4! md:px-8! mx-auto;
 }
 
-/* page heading */
+/* page heading - 다크모드 지원 추가 */
 .page-heading {
-  @apply mb-20 text-center font-bold leading-10;
+  @apply mb-20 text-center font-bold leading-10 text-dark dark:text-darkmode-dark;
   &:after {
     @apply mx-auto mt-4 block h-1 w-10 rounded-full bg-primary content-[''];
   }
@@ -35,13 +35,13 @@
   }
 }
 
-/* social icon style */
+/* social icon style - 다크모드 지원 추가 */
 .social-icons {
   @apply space-x-4;
   li {
     @apply inline-block;
     a {
-      @apply block h-11 w-11 rounded-lg border border-light bg-transparent text-center text-white transition hover:border-primary hover:bg-primary;
+      @apply block h-11 w-11 rounded-lg border border-light dark:border-darkmode-light bg-transparent text-center text-white transition hover:border-primary hover:bg-primary;
       svg {
         @apply m-auto h-11 text-base;
       }
@@ -54,7 +54,7 @@
   li {
     @apply inline-block;
     a {
-      @apply block p-3 text-dark transition hover:text-primary;
+      @apply block p-3 text-dark dark:text-darkmode-dark transition hover:text-primary;
       svg {
         @apply text-lg;
       }
@@ -72,30 +72,76 @@
   }
 }
 
-/* content style */
+/* content style - 다크모드 지원 대폭 개선 */
 .content {
-  @apply prose max-w-none prose-headings:font-bold prose-h1:mb-4 prose-h1:text-h1-sm prose-h2:mb-4 prose-h2:mt-4 prose-h2:text-h2-sm prose-h3:mt-4 prose-h3:text-h3-sm prose-h4:mt-4 prose-h5:mb-4 prose-h6:mb-6 prose-blockquote:rounded-lg prose-blockquote:border-primary prose-blockquote:bg-light prose-blockquote:px-7 prose-blockquote:py-3 prose-blockquote:text-lg prose-blockquote:leading-8 prose-pre:px-6 prose-pre:py-5 md:prose-h1:text-h1 md:prose-h2:text-h2 md:prose-h3:text-h3;
+  @apply prose max-w-none 
+  prose-headings:font-bold prose-headings:text-dark dark:prose-headings:text-darkmode-dark
+  prose-h1:mb-4 prose-h1:text-h1-sm 
+  prose-h2:mb-4 prose-h2:mt-4 prose-h2:text-h2-sm 
+  prose-h3:mt-4 prose-h3:text-h3-sm 
+  prose-h4:mt-4 prose-h5:mb-4 prose-h6:mb-6 
+  prose-blockquote:rounded-lg prose-blockquote:border-primary prose-blockquote:bg-light dark:prose-blockquote:bg-darkmode-light prose-blockquote:px-7 prose-blockquote:py-3 prose-blockquote:text-lg prose-blockquote:leading-8 
+  prose-pre:px-6 prose-pre:py-5 prose-pre:bg-light dark:prose-pre:bg-darkmode-light prose-pre:text-dark dark:prose-pre:text-darkmode-dark
+  prose-code:bg-light dark:prose-code:bg-darkmode-light prose-code:text-dark dark:prose-code:text-darkmode-dark prose-code:px-1 prose-code:py-0.5 prose-code:rounded
+  prose-p:text-text dark:prose-p:text-darkmode-text 
+  prose-li:text-text dark:prose-li:text-darkmode-text
+  prose-strong:text-dark dark:prose-strong:text-darkmode-dark
+  prose-em:text-text dark:prose-em:text-darkmode-text
+  prose-a:text-primary hover:prose-a:text-primary dark:prose-a:text-primary
+  prose-table:text-text dark:prose-table:text-darkmode-text
+  prose-th:text-dark dark:prose-th:text-darkmode-dark
+  prose-td:text-text dark:prose-td:text-darkmode-text
+  prose-hr:border-border dark:prose-hr:border-darkmode-border
+  md:prose-h1:text-h1 md:prose-h2:text-h2 md:prose-h3:text-h3;
 }
 
-/* tab */
+/* 추가: 목록 스타일 개선 */
+.content ul li::marker {
+  @apply text-primary;
+}
+
+.content ol li::marker {
+  @apply text-primary;
+}
+
+/* 추가: 테이블 스타일 다크모드 지원 */
+.content table {
+  @apply border-border dark:border-darkmode-border;
+}
+
+.content thead {
+  @apply bg-light dark:bg-darkmode-light;
+}
+
+.content tbody tr {
+  @apply border-border dark:border-darkmode-border;
+}
+
+.content tbody tr:nth-child(even) {
+  background-color: rgba(250, 250, 250, 0.5); /* 라이트모드: 50% 투명도 */
+}
+
+.dark .content tbody tr:nth-child(even) {
+  background-color: rgba(42, 42, 42, 0.5); /* 다크모드: 50% 투명도 */
+}
+
+/* tab - 다크모드 지원 추가 */
 .tab {
-  @apply overflow-hidden rounded-lg border border-border;
+  @apply overflow-hidden rounded-lg border border-border dark:border-darkmode-border;
 }
 
 .tab-nav {
-  @apply flex border-b border-border bg-light;
-  @apply m-0;
-  @apply list-none;
+  @apply flex border-b border-border dark:border-darkmode-border bg-light dark:bg-darkmode-light;
+  @apply m-0 list-none;
 }
 
 .tab-nav-item {
-  @apply cursor-pointer border-b-[3px] border-border py-2 text-lg text-dark opacity-80;
-  @apply my-0;
-  @apply px-8;
+  @apply cursor-pointer border-b-[3px] border-border dark:border-darkmode-border py-2 text-lg text-dark dark:text-darkmode-dark opacity-80;
+  @apply my-0 px-8;
 }
 
 .tab-nav-item.active {
-  @apply border-b-[3px] border-dark opacity-100;
+  @apply border-b-[3px] border-dark dark:border-darkmode-dark opacity-100;
 }
 
 .tab-content-panel {
@@ -110,13 +156,13 @@
   @apply block;
 }
 
-/* accordion */
+/* accordion - 다크모드 지원 추가 */
 .accordion {
-  @apply mb-6 overflow-hidden rounded-lg border border-border bg-light;
+  @apply mb-6 overflow-hidden rounded-lg border border-border dark:border-darkmode-border bg-light dark:bg-darkmode-light;
 }
 
 .accordion-header {
-  @apply flex w-full cursor-pointer items-center justify-between px-8 py-4 text-lg text-dark;
+  @apply flex w-full cursor-pointer items-center justify-between px-8 py-4 text-lg text-dark dark:text-darkmode-dark;
 }
 
 .accordion-icon {
@@ -148,8 +194,9 @@
   @apply mr-3;
 }
 
+/* 다크모드 지원 추가 */
 .notice-head p {
-  @apply font-secondary text-xl font-semibold text-dark;
+  @apply font-secondary text-xl font-semibold text-dark dark:text-darkmode-dark;
 }
 
 .notice-body {
@@ -180,11 +227,83 @@
   @apply border-current;
 }
 
-/* footer */
-footer p a {
-  @apply transition-all duration-200 hover:text-white;
+/* footer - 다크모드 지원 추가 */
+footer {
+  @apply bg-dark dark:bg-darkmode-dark;
 }
 
+/* footer p a {
+  @apply transition-all duration-200 hover:text-white;
+} */
+
+/* 카드 스타일에 다크모드 지원 */
+.post-list-card {
+  @apply bg-white dark:bg-darkmode-body rounded-lg;
+}
+
+/* 기본 CSS로 다크모드 shadow 처리 */
+.dark .post-list-card {
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+}
+
+.post-list-card:hover {
+  @apply transform -translate-y-0.5 shadow-md;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* 기본 CSS로 다크모드 hover shadow 처리 */
+.dark .post-list-card:hover {
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.2), 0 2px 4px -1px rgba(0, 0, 0, 0.1);
+}
+
+.category-card {
+  @apply bg-white dark:bg-darkmode-body border border-border dark:border-darkmode-border rounded-lg;
+}
+
+.category-card:hover {
+  transform: translateY(-2px);
+  transition: transform 0.3s ease;
+}
+
+.post-card {
+  @apply bg-white dark:bg-darkmode-body border border-border dark:border-darkmode-border rounded-lg;
+}
+
+.post-card:hover {
+  transform: translateY(-2px);
+  transition: transform 0.3s ease;
+}
+
+/* pagination 다크모드 지원 추가 */
+.pagination {
+  @apply flex justify-center items-center space-x-2;
+}
+
+.pagination a,
+.pagination span {
+  @apply px-4 py-2 rounded-lg text-dark dark:text-darkmode-dark bg-light dark:bg-darkmode-light border border-border dark:border-darkmode-border hover:bg-primary hover:text-white transition-colors;
+}
+
+.pagination .current {
+  @apply bg-primary text-white border-primary;
+}
+
+/* 검색 결과 스타일 다크모드 지원 */
+.search-result-item {
+  @apply p-4 border-b border-border dark:border-darkmode-border hover:bg-light dark:hover:bg-darkmode-light transition-colors;
+}
+
+.search-result-item:last-child {
+  @apply border-b-0;
+}
+
+.search-result-title {
+  @apply text-dark dark:text-darkmode-dark font-semibold hover:text-primary;
+}
+
+.search-result-excerpt {
+  @apply text-text dark:text-darkmode-text text-sm mt-1;
+}
 
 /* TOC 스타일 */
 /* 스크롤바 스타일 */
@@ -238,12 +357,6 @@ footer p a {
   -webkit-backdrop-filter: blur(4px);
 }
 
-.post-list-card:hover {
-  transform: translateY(-2px);  /* 살짝 위로 뜨기 */
-  transition: transform 0.3s ease;
-}
-
-
 /* index */
 .line-clamp-2 {
     display: -webkit-box;
@@ -257,18 +370,4 @@ footer p a {
     -webkit-line-clamp: 3;
     -webkit-box-orient: vertical;
     overflow: hidden;
-  }
-
-  .category-card:hover {
-    transform: translateY(-2px);
-    transition: transform 0.3s ease;
-  }
-
-  .post-card:hover {
-    transform: translateY(-2px);
-    transition: transform 0.3s ease;
-  }
-
-  .aspect-video {
-    aspect-ratio: 16 / 9;
   }

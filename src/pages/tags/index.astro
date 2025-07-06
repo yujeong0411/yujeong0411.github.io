@@ -12,8 +12,10 @@ const totalPosts = tagsWithCounts.reduce((sum, tag) => sum + tag.count, 0);
 <Base title={"Tags"}>
   <section class="section">
     <div class="container text-center">
-      <h1 class="h2 page-heading mb-8">Tags</h1>
-      <p class="text-text max-w-2xl mx-auto mb-12">
+      <h1 class="h2 page-heading mb-8 text-dark dark:text-darkmode-dark">
+        Tags
+      </h1>
+      <p class="text-text dark:text-darkmode-text max-w-2xl mx-auto mb-12">
         총 {tagsWithCounts.length}개 태그, {totalPosts}개 포스트
       </p>
       <ul class="space-x-3 space-y-3">
@@ -22,7 +24,7 @@ const totalPosts = tagsWithCounts.reduce((sum, tag) => sum + tag.count, 0);
             <li class="inline-block">
               <a
                 href={`/tags/${tag.slug}`}
-                class="rounded-lg bg-gray-100 px-4 py-2 text-dark transition hover:bg-primary hover:text-white inline-flex items-center group "
+                class="rounded-lg bg-gray-100 dark:bg-darkmode-light px-4 py-2 text-dark dark:text-darkmode-dark transition hover:bg-primary hover:text-white dark:hover:bg-primary dark:hover:text-white inline-flex items-center group "
               >
                 <FaHashtag className="mr-2 text-primary group-hover:text-white transition text-sm" />
                 <span>

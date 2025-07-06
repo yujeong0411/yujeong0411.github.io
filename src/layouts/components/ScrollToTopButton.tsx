@@ -35,12 +35,11 @@ const ScrollToTopButton: React.FC<ScrollToTopButtonProps> = ({
     });
   };
 
-  // 반응형 Position 클래스 (새로운 옵션 추가)
+  // 반응형 Position 클래스 
   const positionClasses = {
     "bottom-right": "bottom-4 right-4 md:bottom-8 md:right-8",
     "bottom-left": "bottom-4 left-4 md:bottom-8 md:left-8",
     "bottom-center": "bottom-4 left-1/2 md:bottom-8 transform -translate-x-1/2",
-    // 새로운 반응형 옵션들
     "responsive-left-center": "bottom-4 left-1/2 transform -translate-x-1/2 lg:left-4 lg:translate-x-0 md:bottom-8 lg:left-8",
     "responsive-right-center": "bottom-4 left-1/2 transform -translate-x-1/2 lg:right-4 lg:left-auto lg:translate-x-0 md:bottom-8 lg:right-8",
   };

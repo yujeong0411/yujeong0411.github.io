@@ -30,7 +30,10 @@ const { title, meta_title, image, what_i_do } = entry.data;
           }
         </div>
         <div class="md:col-9">
-          <h1 set:html={markdownify(title)} class="h3 mb-8" />
+          <h1
+            set:html={markdownify(title)}
+            class="h3 mb-8 text-dark dark:text-darkmode-dark"
+          />
 
           <div class="content">
             <Content />
@@ -50,9 +53,13 @@ const { title, meta_title, image, what_i_do } = entry.data;
         {
           what_i_do.items.map((item: any) => (
             <div class="lg:col-4 md:col-6">
-              <i class="{{.icon}} fa-3x text-primary mb-4" />
-              <h4 class="text-dark font-weight-700 mb-3">{item.title}</h4>
-              <p>{item.description}</p>
+              <i class={`${item.icon} fa-3x text-primary mb-4`} />
+              <h4 class="text-dark dark:text-darkmode-dark font-weight-700 mb-3">
+                {item.title}
+              </h4>
+              <p class="text-text dark:text-darkmode-text">
+                {item.description}
+              </p>
             </div>
           ))
         }

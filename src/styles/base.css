@@ -1,6 +1,6 @@
+/* ======== 기존 base.css (문제 있음) ======== */
 html {
   @apply text-base;
-  /* 스크롤바 너비만큼 여백 추가 */
   margin-left: calc(100vw - 100%);
   min-width: 375px;
   scroll-behavior: smooth;
@@ -8,52 +8,106 @@ html {
 
 body {
   @apply bg-body font-primary font-normal leading-relaxed text-text;
+  /* ❌ 다크모드 없음 */
 }
 
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
+h1, h2, h3, h4, h5, h6 {
   @apply font-primary font-bold leading-tight text-dark;
+  /* ❌ 다크모드 없음 */
 }
 
-h1,
-.h1 {
+/* ======== 수정된 base.css (완벽한 다크모드) ======== */
+html {
+  @apply text-base;
+  margin-left: calc(100vw - 100%);
+  min-width: 375px;
+  scroll-behavior: smooth;
+}
+
+body {
+  @apply bg-body dark:bg-darkmode-body font-primary font-normal leading-relaxed text-text dark:text-darkmode-text;
+  /* ✅ 다크모드 배경 + 텍스트 색상 추가 */
+}
+
+h1, h2, h3, h4, h5, h6 {
+  @apply font-primary font-bold leading-tight text-dark dark:text-darkmode-dark;
+  /* ✅ 다크모드 제목 색상 추가 */
+}
+
+h1, .h1 {
   @apply text-h1-sm md:text-h1;
 }
 
-h2,
-.h2 {
+h2, .h2 {
   @apply text-h2-sm md:text-h2;
 }
 
-h3,
-.h3 {
+h3, .h3 {
   @apply text-h3-sm md:text-h3;
 }
 
-h4,
-.h4 {
+h4, .h4 {
   @apply text-h4;
 }
 
-h5,
-.h5 {
+h5, .h5 {
   @apply text-h5;
 }
 
-h6,
-.h6 {
+h6, .h6 {
   @apply text-h6;
 }
 
-b,
-strong {
+b, strong {
   @apply font-semibold;
 }
 
 img {
   @apply inline-block;
+}
+
+/* ✅ 추가: 기본 텍스트 요소들에 다크모드 지원 */
+p {
+  @apply text-text dark:text-darkmode-text;
+}
+
+a {
+  @apply text-dark dark:text-darkmode-dark hover:text-primary;
+}
+
+/* 목록 요소들 */
+ul, ol, li {
+  @apply text-text dark:text-darkmode-text;
+}
+
+/* 테이블 요소들 */
+table {
+  @apply text-text dark:text-darkmode-text;
+}
+
+th {
+  @apply text-dark dark:text-darkmode-dark;
+}
+
+td {
+  @apply text-text dark:text-darkmode-text;
+}
+
+/* 폼 요소들 */
+input, textarea, select {
+  @apply bg-light dark:bg-darkmode-light text-dark dark:text-darkmode-dark border-border dark:border-darkmode-border;
+}
+
+/* 코드 요소들 */
+code {
+  @apply text-dark dark:text-darkmode-dark bg-light dark:bg-darkmode-light;
+}
+
+pre {
+  @apply text-dark dark:text-darkmode-dark bg-light dark:bg-darkmode-light;
+}
+
+/* 인용구 */
+blockquote {
+  @apply text-text dark:text-darkmode-text;
 }

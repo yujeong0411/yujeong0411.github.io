@@ -17,7 +17,7 @@ const posts = await getSinglePage("posts");
 const { post } = Astro.props;
 const similarPosts = similerItems(post, posts, post.slug);
 const { Content } = await render(post);
-const { title, description, categories, image, date, tags } = post.data;
+const { title, categories, image, date, tags } = post.data;
 
 // TOC를 위한 헤딩 추출 (tocFunctions.ts 활용)
 const { enable_toc } = config.params;
@@ -33,14 +33,23 @@ if (enable_toc) {
   <div class="container">
     <article class="row justify-center">
       <div class="md:col-10 text-center">
-        <h1 set:html={markdownify(title)} class="h2" />
-        <ul class="mt-4 flex flex-wrap items-center justify-center text-text">
-          <li class="mx-3 flex items-center flex-wrap font-medium">
-            <BiCalendarEdit className="mr-1 h-5 w-5 text-gray-600" />
+        <h1
+          set:html={markdownify(title)}
+          class="h2 text-dark dark:text-darkmode-dark"
+        />
+        <ul
+          class="mt-4 flex flex-wrap items-center justify-center text-text dark:text-darkmode-text"
+        >
+          <li class="mx-3 flex items-center flex-wrap">
+            <BiCalendarEdit
+              className="mr-1 h-5 w-5 text-text dark:text-darkmode-text"
+            />
             {dateFormat(date)}
           </li>
           <li class="mx-3 flex items-center flex-wrap">
-            <BiCategoryAlt className="mr-1 h-[18px] w-[18px] text-gray-600" />
+            <BiCategoryAlt
+              className="mr-1 h-[18px] w-[18px] text-text dark:text-darkmode-text"
+            />
 
             <ul>
               {
@@ -48,7 +57,7 @@ if (enable_toc) {
                   <li class="inline-block">
                     <a
                       href={`/categories/${slugify(category)}`}
-                      class="mr-2 hover:text-primary font-medium"
+                      class="mr-2 hover:text-primary text-text dark:text-darkmode-text"
                     >
                       {humanize(category)}
                       {i !== post.data.categories.length - 1 && ","}
@@ -86,7 +95,7 @@ if (enable_toc) {
                 <li class="inline-block">
                   <a
                     href={`/tags/${slugify(tag)}`}
-                    class="block rounded-lg bg-light px-4 py-2 font-semibold text-dark text-sm hover:text-primary transition duration-300"
+                    class="block rounded-lg bg-light dark:bg-darkmode-light px-4 py-2 font-semibold text-dark dark:text-darkmode-dark text-sm hover:text-primary transition duration-300"
                   >
                     #{humanize(tag)}
                   </a>

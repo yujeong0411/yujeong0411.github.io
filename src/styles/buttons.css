@@ -1,11 +1,24 @@
+/* 기본 텍스트와 보더 색상 추가 */
 .btn {
   @apply inline-block rounded-lg border px-6 py-3 font-semibold transition cursor-pointer;
+  @apply text-dark dark:text-darkmode-dark border-border dark:border-darkmode-border;
 }
 
+/* 보더 색상도 명시 */
 .btn-primary {
-  @apply bg-primary text-white hover:text-white;
+  @apply bg-primary text-white hover:text-white border-primary;
 }
 
 .btn-outline-primary {
-  @apply border-primary bg-transparent hover:bg-primary hover:text-white;
+  /* 텍스트 색상 명시 (primary) */
+  @apply border-primary bg-transparent text-primary hover:bg-primary hover:text-white;
+}
+
+/* 다크모드 전용 버튼 스타일 */
+.btn-secondary {
+  @apply bg-light dark:bg-darkmode-light text-dark dark:text-darkmode-dark border-border dark:border-darkmode-border hover:bg-primary hover:text-white hover:border-primary;
+}
+
+.btn-outline-secondary {
+  @apply border-border dark:border-darkmode-border bg-transparent text-dark dark:text-darkmode-dark hover:bg-light dark:hover:bg-darkmode-light;
 }

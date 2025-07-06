@@ -20,14 +20,18 @@ const currentPosts = sortedPosts.slice(0, config.settings.pagination);
   <section class="section pt-16">
     <div class="container">
       <div class="mb-12">
-        <h2 class="text-2xl font-bold text-dark mb-3">최신 포스트</h2>
-        <p class="text-text-light">가장 최근에 작성한 글들을 확인해보세요</p>
+        <h2 class="text-2xl font-bold text-dark dark:text-darkmode-dark mb-3">
+          최신 포스트
+        </h2>
+        <p class="text-text-light dark:text-darkmode-text">
+          가장 최근에 작성한 글들을 확인해보세요
+        </p>
       </div>
 
       <div class="grid md:grid-cols-3 gap-8 mb-16">
         {
           sortedPosts.slice(0, 3).map((post) => (
-            <article class="post-card group bg-white rounded-xl border border-border transition-all duration-300 overflow-hidden hover:shadow-xl">
+            <article class="post-card group bg-white dark:bg-darkmode-body rounded-xl border border-border dark:border-darkmode-border transition-all duration-300 overflow-hidden hover:shadow-xl dark:hover:shadow-darkmode-border/20">
               {post.data.image && (
                 <a
                   href={`/${post.id.replace(/^\d{4}-\d{2}-\d{2}-/, "").replace(/\.(md|mdx)$/, "")}`}
@@ -44,12 +48,12 @@ const currentPosts = sortedPosts.slice(0, config.settings.pagination);
               )}
               <div class="p-6">
                 <ul class="mb-4 flex flex-wrap items-center text-sm gap-4">
-                  <li class="flex items-center flex-wrap font-medium">
-                    <BiCalendarEdit className="mr-1 h-4 w-4 text-gray-600" />
+                  <li class="flex items-center flex-wrap font-medium dark:text-darkmode-text">
+                    <BiCalendarEdit className="mr-1 h-4 w-4 text-gray-600 dark:text-darkmode-text" />
                     {dateFormat(post.data.date!)}
                   </li>
                   <li class="flex items-center flex-wrap gap-1">
-                    <BiCategoryAlt className="h-[16px] w-[16px] text-gray-600" />
+                    <BiCategoryAlt className="h-[16px] w-[16px] text-gray-600 dark:text-darkmode-text" />
                     <div class="flex flex-wrap gap-2">
                       {post.data.categories.map((category: any) => (
                         <a
@@ -62,7 +66,7 @@ const currentPosts = sortedPosts.slice(0, config.settings.pagination);
                     </div>
                   </li>
                 </ul>
-                <h3 class="font-bold text-dark mb-3 text-lg">
+                <h3 class="font-bold text-dark dark:text-darkmode-dark mb-3 text-lg">
                   <a
                     href={`/${post.id.replace(/^\d{4}-\d{2}-\d{2}-/, "").replace(/\.(md|mdx)$/, "")}`}
                     class="group-hover:text-primary transition-colors line-clamp-2"
@@ -94,26 +98,32 @@ const currentPosts = sortedPosts.slice(0, config.settings.pagination);
   </section>
 
   <!-- 주요 카테고리 -->
-  <section class="section bg-gray-100">
+  <section class="section bg-gray-100 dark:bg-darkmode-light">
     <div class="container">
       <div class="mb-12">
-        <h2 class="text-2xl font-bold text-dark mb-3">카테고리</h2>
-        <p class="text-text-light">관심사별로 정리된 이야기들</p>
+        <h2 class="text-2xl font-bold text-dark dark:text-darkmode-dark mb-3">
+          카테고리
+        </h2>
+        <p class="text-text-light dark:text-darkmode-text">
+          관심사별로 정리된 이야기들
+        </p>
       </div>
 
       <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
         <a
           href="/categories/development"
-          class="category-card group bg-white p-6 rounded-xl border border-border hover:border-primary/30 transition-all duration-300 hover:shadow-lg block"
+          class="category-card group bg-white dark:bg-darkmode-body p-6 rounded-xl border border-border dark:border-darkmode-border hover:border-primary/30 transition-all duration-300 hover:shadow-lg block"
         >
-          <h5
-            class="font-bold text-dark mb-2 group-hover:text-primary transition-colors"
-          >
-            Development
+          <h5 class="font-bold mb-2 text-dark dark:text-darkmode-dark">
+            <span class="group-hover:text-primary transition-colors">
+              Development
+            </span>
           </h5>
-          <p class="text-text text-sm mb-4">실전 개발 경험과 기술 팁</p>
+          <p class="text-text dark:text-darkmode-text text-sm mb-4">
+            실전 개발 경험과 기술 팁
+          </p>
           <div class="flex justify-between items-center">
-            <span class="text-xs text-text-light">
+            <span class="text-xs text-text-light dark:text-darkmode-text">
               {
                 posts.filter((p) => p.data.categories.includes("development"))
                   .length
@@ -129,16 +139,16 @@ const currentPosts = sortedPosts.slice(0, config.settings.pagination);
 
         <a
           href="/categories/it"
-          class="category-card group bg-white p-6 rounded-xl border border-border hover:border-primary/30 transition-all duration-300 hover:shadow-lg block"
+          class="category-card group bg-white dark:bg-darkmode-body p-6 rounded-xl border border-border dark:border-darkmode-border hover:border-primary/30 transition-all duration-300 hover:shadow-lg block"
         >
-          <h5
-            class="font-bold text-dark mb-2 group-hover:text-primary transition-colors"
-          >
-            IT
+          <h5 class="font-bold mb-2 text-dark dark:text-darkmode-dark">
+            <span class="group-hover:text-primary transition-colors"> IT </span>
           </h5>
-          <p class="text-text text-sm mb-4">IT 트렌드와 기술 소식</p>
+          <p class="text-text dark:text-darkmode-text text-sm mb-4">
+            IT 트렌드와 기술 소식
+          </p>
           <div class="flex justify-between items-center">
-            <span class="text-xs text-text-light">
+            <span class="text-xs text-text-light dark:text-darkmode-text">
               {posts.filter((p) => p.data.categories.includes("IT")).length}개
               포스트
             </span>
@@ -152,16 +162,18 @@ const currentPosts = sortedPosts.slice(0, config.settings.pagination);
 
         <a
           href="/categories/data"
-          class="category-card group bg-white p-6 rounded-xl border border-border hover:border-primary/30 transition-all duration-300 hover:shadow-lg block"
+          class="category-card group bg-white dark:bg-darkmode-body p-6 rounded-xl border border-border dark:border-darkmode-border hover:border-primary/30 transition-all duration-300 hover:shadow-lg block"
         >
-          <h5
-            class="font-bold text-dark mb-2 group-hover:text-primary transition-colors"
-          >
-            Data
+          <h5 class="font-bold mb-2 text-dark dark:text-darkmode-dark">
+            <span class="group-hover:text-primary transition-colors">
+              Data
+            </span>
           </h5>
-          <p class="text-text text-sm mb-4">데이터 분석과 인사이트</p>
+          <p class="text-text dark:text-darkmode-text text-sm mb-4">
+            데이터 분석과 인사이트
+          </p>
           <div class="flex justify-between items-center">
-            <span class="text-xs text-text-light">
+            <span class="text-xs text-text-light dark:text-darkmode-text">
               {posts.filter((p) => p.data.categories.includes("Data")).length}개
               포스트
             </span>
@@ -174,21 +186,21 @@ const currentPosts = sortedPosts.slice(0, config.settings.pagination);
         </a>
 
         <a
-          href="/categories/코딩테스트"
-          class="category-card group bg-white p-6 rounded-xl border border-border hover:border-primary/30 transition-all duration-300 hover:shadow-lg block"
+          href="/categories/취업"
+          class="category-card group bg-white dark:bg-darkmode-body p-6 rounded-xl border border-border dark:border-darkmode-border hover:border-primary/30 transition-all duration-300 hover:shadow-lg block"
         >
-          <h5
-            class="font-bold text-dark mb-2 group-hover:text-primary transition-colors"
-          >
-            코딩테스트
+          <h5 class="font-bold mb-2 text-dark dark:text-darkmode-dark">
+            <span class="group-hover:text-primary transition-colors">
+              코딩테스트
+            </span>
           </h5>
-          <p class="text-text text-sm mb-4">알고리즘과 문제 해결</p>
+          <p class="text-text dark:text-darkmode-text text-sm mb-4">
+            취업 준비
+          </p>
           <div class="flex justify-between items-center">
-            <span class="text-xs text-text-light">
-              {
-                posts.filter((p) => p.data.categories.includes("코딩테스트"))
-                  .length
-              }개 포스트
+            <span class="text-xs text-text-light dark:text-darkmode-text">
+              {posts.filter((p) => p.data.categories.includes("취업")).length}개
+              포스트
             </span>
             <span
               class="text-primary group-hover:translate-x-1 transition-transform text-sm"
@@ -214,8 +226,12 @@ const currentPosts = sortedPosts.slice(0, config.settings.pagination);
   <section id="all-posts" class="section">
     <div class="container">
       <div class="mb-12">
-        <h2 class="text-2xl font-bold text-dark mb-3">모든 포스트</h2>
-        <p class="text-text-light">개발과 학습의 여정을 함께 나누는 이야기들</p>
+        <h2 class="text-2xl font-bold text-dark dark:text-darkmode-dark mb-3">
+          모든 포스트
+        </h2>
+        <p class="text-text-light dark:text-darkmode-text">
+          개발과 학습의 여정을 함께 나누는 이야기들
+        </p>
       </div>
 
       <Posts posts={currentPosts} className="mb-12" />

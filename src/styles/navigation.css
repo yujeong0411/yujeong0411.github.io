@@ -8,7 +8,7 @@
 }
 
 .navbar-nav {
-  @apply text-center md:text-left;
+  @apply text-center;
 }
 
 .nav-item {
@@ -16,11 +16,11 @@
 }
 
 .nav-link {
-  @apply p-3 text-lg font-semibold text-dark transition hover:text-primary md:p-4;
+  @apply p-3 text-lg font-semibold text-dark dark:text-darkmode-dark transition hover:text-primary md:p-4;
 }
 
 .nav-dropdown-list {
-  @apply z-10 rounded-lg bg-white px-6 py-3 shadow transition;
+  @apply z-10 rounded-lg bg-white dark:bg-darkmode-body px-6 py-3 shadow transition;
 }
 
 .nav-dropdown-item {
@@ -28,16 +28,69 @@
 }
 
 .nav-dropdown-link {
-  @apply block min-w-[150px] py-1 text-[17px] font-semibold text-dark transition hover:text-primary;
+  @apply block min-w-[150px] py-1 text-[17px] font-semibold text-dark dark:text-darkmode-dark transition hover:text-primary;
 }
 
-/* search style */
+/* 햄버거 메뉴 토글 기능 */
+#nav-toggle:checked ~ #show-button {
+  display: none !important;
+}
+
+#nav-toggle:checked ~ #hide-button {
+  display: flex !important;
+}
+
+#nav-toggle:checked ~ #nav-menu {
+  @apply flex flex-col w-full mt-4 bg-white dark:bg-darkmode-body border-t border-border dark:border-darkmode-border pt-4;
+}
+
+/* 모바일에서 메뉴 간격 조정 */
+@media (max-width: 1023px) {
+  #nav-toggle:checked ~ #nav-menu {
+    @apply text-center;
+  }
+  
+  #nav-toggle:checked ~ #nav-menu .nav-item {
+    @apply w-full m-0 border-b border-gray-100 dark:border-gray-700;
+  }
+  
+  #nav-toggle:checked ~ #nav-menu .nav-item:last-child {
+    @apply border-b-0;
+  }
+  
+  #nav-toggle:checked ~ #nav-menu .nav-link {
+    @apply p-3 block w-full;
+  }
+}
+
+/* lg 이상에서는 기본 가로 네비게이션 */
+@media (min-width: 1024px) {
+  #nav-toggle:checked ~ #show-button,
+  #nav-toggle:checked ~ #hide-button {
+    display: none !important;
+  }
+  
+  #nav-toggle:checked ~ #nav-menu {
+    @apply flex flex-row w-auto mt-0 bg-transparent border-t-0 pt-0;
+  }
+  
+  /* 데스크탑에서는 원래 스타일 유지 */
+  #nav-toggle:checked ~ #nav-menu .nav-item {
+    @apply mx-1 border-b-0;
+  }
+  
+  #nav-toggle:checked ~ #nav-menu .nav-link {
+    @apply p-3 md:p-4;
+  }
+}
+
+/* search style - 다크모드 지원 추가 */
 .search-modal {
-  @apply invisible absolute top-0 left-0 right-0 z-10 h-10 bg-white opacity-0 transition md:h-full;
+  @apply invisible absolute top-0 left-0 right-0 z-10 h-10 bg-white dark:bg-darkmode-body opacity-0 transition md:h-full;
 }
 
 .search-modal .form-input {
-  @apply h-full w-full border-0 text-lg;
+  @apply h-full w-full border-0 text-lg bg-transparent text-dark dark:text-darkmode-dark;
 }
 
 .search-modal .search-close {

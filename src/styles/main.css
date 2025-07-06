@@ -4,6 +4,8 @@
 @plugin "@tailwindcss/forms";
 @plugin "@tailwindcss/typography";
 
+@variant dark (.dark &);
+
 @import "./safe.css";
 @import "./utilities.css";
 

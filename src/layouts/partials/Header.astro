@@ -1,5 +1,6 @@
 ---
 import Logo from "@/components/Logo.astro";
+import DarkModeToggle from "@/components/DarkModeToggle";
 import menu from "@/config/menu.json";
 import { IoSearch } from "react-icons/io5";
 import { getSinglePage } from "@/lib/contentParser.astro";
@@ -39,7 +40,7 @@ const searchList = posts.map((item) => ({
     <label
       id="show-button"
       for="nav-toggle"
-      class="order-2 flex cursor-pointer items-center text-black md:order-1 md:hidden"
+      class="order-2 flex cursor-pointer items-center text-black dark:text-white lg:order-1 lg:hidden"
     >
       <svg class="h-6 fill-current" viewBox="0 0 20 20">
         <title>Menu Open</title>
@@ -49,7 +50,7 @@ const searchList = posts.map((item) => ({
     <label
       id="hide-button"
       for="nav-toggle"
-      class="order-2 hidden cursor-pointer items-center text-black md:order-1"
+      class="order-2 hidden cursor-pointer items-center text-black dark:text-white lg:order-1"
     >
       <svg class="h-6 fill-current" viewBox="0 0 20 20">
         <title>Menu Close</title>
@@ -63,7 +64,7 @@ const searchList = posts.map((item) => ({
     <!-- 네비게이션 메뉴 -->
     <ul
       id="nav-menu"
-      class="navbar-nav order-3 hidden w-full md:order-1 md:flex md:w-auto"
+      class="navbar-nav order-3 hidden w-full lg:order-1 lg:flex lg:w-auto"
     >
       {
         main.map((menu) => (
@@ -76,7 +77,7 @@ const searchList = posts.map((item) => ({
                     <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" />
                   </svg>
                 </span>
-                <ul class="nav-dropdown-list hidden group-hover:block md:invisible md:absolute md:block md:opacity-0 md:group-hover:visible md:group-hover:opacity-100">
+                <ul class="nav-dropdown-list hidden group-hover:block lg:invisible lg:absolute lg:block lg:opacity-0 lg:group-hover:visible lg:group-hover:opacity-100">
                   {menu.children?.map((child) => (
                     <li class="nav-dropdown-item">
                       <a href={child.url} class="nav-dropdown-link">
@@ -98,12 +99,12 @@ const searchList = posts.map((item) => ({
       }
     </ul>
 
-    <!-- 검색창 -->
-    <div class="order-1 ml-auto flex items-center md:order-2 md:ml-4 relative">
+    <!-- 검색창 및 다크모드 토글 -->
+    <div class="order-1 ml-auto flex items-center lg:order-2 lg:ml-4 relative">
       <!-- 모바일: 검색 페이지로 이동 -->
       <a
         href="/search"
-        class="block lg:hidden p-2 text-gray-600 hover:text-primary transition-colors duration-200 pr-4"
+        class="block lg:hidden p-2 text-gray-600 dark:text-gray-300 hover:text-primary transition-colors duration-200"
         aria-label="검색 페이지로 이동"
       >
         <IoSearch className="w-5 h-5" />
@@ -112,7 +113,7 @@ const searchList = posts.map((item) => ({
       <!-- 검색 입력창 (반응형) -->
       <input
         id="search-input"
-        class="transition-all duration-300 ease-in-out bg-light border border-border rounded-lg px-4 py-2 pr-10 text-sm placeholder-gray-500 focus:outline-none focus:ring-1 focus:ring-primary focus:border-primary focus:shadow-md
+        class="transition-all duration-300 ease-in-out bg-light dark:bg-darkmode-light border border-border dark:border-darkmode-border rounded-lg px-4 py-2 pr-10 text-sm placeholder-gray-500 dark:placeholder-gray-400 text-dark dark:text-darkmode-text focus:outline-none focus:ring-1 focus:ring-primary focus:border-primary focus:shadow-md
         w-0 opacity-0 absolute right-0 top-full mt-1 z-[60] lg:static lg:mt-0 lg:relative lg:opacity-100
         lg:w-48 xl:w-64"
         placeholder="검색..."
@@ -123,12 +124,17 @@ const searchList = posts.map((item) => ({
       <!-- 데스크탑 전용 검색 버튼 -->
       <button
         id="search-button"
-        class="hidden lg:block absolute lg:static right-2 p-1 text-gray-500 hover:text-primary hover:scale-110 transition-all duration-200"
+        class="hidden lg:block absolute lg:static right-2 p-1 text-gray-500 dark:text-gray-400 hover:text-primary hover:scale-110 transition-all duration-200"
         title="검색"
         aria-label="검색"
       >
         <IoSearch className="w-4 h-4" />
       </button>
+
+      <!-- 다크모드 토글 -->
+      <div class="mx-4">
+        <DarkModeToggle client:load />
+      </div>
     </div>
   </nav>
 
@@ -138,7 +144,7 @@ const searchList = posts.map((item) => ({
       <div class="relative">
         <div
           id="search-results-content"
-          class="absolute right-0 bg-white rounded-lg shadow-xl border border-gray-200 mt-2 w-80 md:w-96 max-h-96 overflow-y-auto z-50"
+          class="absolute right-0 bg-white dark:bg-darkmode-body rounded-lg shadow-xl border border-gray-200 dark:border-darkmode-border mt-2 w-80 md:w-96 max-h-96 overflow-y-auto z-50"
         >
           <!-- 검색 결과가 여기에 표시됩니다 -->
         </div>
@@ -202,35 +208,35 @@ const searchList = posts.map((item) => ({
     displaySearchResults(results, query);
   }
 
-  // 검색 결과 표시
+  // 검색 결과 표시 (다크모드 지원)
   function displaySearchResults(results, query) {
     if (results.length === 0) {
       searchResultsContent.innerHTML = `
-        <div class="p-4 text-center text-gray-500">
+        <div class="p-4 text-center text-gray-500 dark:text-gray-400">
           <p>"${query}"에 대한 검색 결과가 없습니다.</p>
         </div>
       `;
     } else {
       searchResultsContent.innerHTML = `
         <div class="p-4">
-          <div class="mb-3 text-sm text-gray-600 border-b pb-2">
+          <div class="mb-3 text-sm text-gray-600 dark:text-gray-300 border-b border-gray-200 dark:border-gray-600 pb-2">
             "${query}"에 대한 ${results.length}개의 결과
           </div>
           ${results
             .slice(0, 5)
             .map(
               ({ item }) => `
-            <div class="group py-3 border-b border-gray-100 last:border-b-0 hover:bg-gray-50 -mx-4 px-4 transition-colors cursor-pointer search-result-item" data-href="/${item.slug}">
+            <div class="group py-3 border-b border-gray-100 dark:border-gray-700 last:border-b-0 hover:bg-gray-50 dark:hover:bg-gray-800 -mx-4 px-4 transition-colors cursor-pointer search-result-item" data-href="/${item.slug}">
               <h3 class="mb-1">
-                <span class="text-base font-semibold text-dark group-hover:text-primary transition-all duration-200">
+                <span class="text-base font-semibold text-dark dark:text-darkmode-dark group-hover:text-primary transition-all duration-200">
                   ${item.data.title}
                 </span>
               </h3>
-              <div class="flex items-center text-xs text-gray-500 mb-2">
+              <div class="flex items-center text-xs text-gray-500 dark:text-gray-400 mb-2">
                 <span class="mr-3">${new Date(item.data.date).toLocaleDateString("ko-KR")}</span>
                 <span>${item.data.categories.join(", ")}</span>
               </div>
-              <p class="text-gray-600 text-sm leading-relaxed">
+              <p class="text-gray-600 dark:text-gray-300 text-sm leading-relaxed">
                 ${item.content ? item.content.slice(0, 100) + "..." : item.data.description || ""}
               </p>
             </div>
@@ -240,7 +246,7 @@ const searchList = posts.map((item) => ({
           ${
             results.length > 5
               ? `
-            <div class="p-3 text-center border-t">
+            <div class="p-3 text-center border-t border-gray-200 dark:border-gray-600">
               <a href="/search?q=${encodeURIComponent(query)}" class="text-primary hover:underline text-sm font-medium">
                 모든 검색 결과 보기 (${results.length}개)
               </a>
@@ -306,9 +312,6 @@ const searchList = posts.map((item) => ({
       searchInput.removeEventListener("input", handleSearchInput);
       searchInput.removeEventListener("focus", handleSearchFocus);
     }
-    // if (searchToggle) {
-    //   searchToggle.removeEventListener("click", handleToggleClick);
-    // }
     if (searchResults) {
       searchResults.removeEventListener("click", handleResultsClick);
     }

@@ -11,12 +11,43 @@ input#nav-toggle:checked ~ #nav-menu {
   @apply block md:flex;
 }
 
-/* form style */
+/* form style - 다크모드 지원 추가 */
 .form-inputs * {
   @apply mb-5 leading-10;
 }
 
 .form-input,
 .form-textarea {
-  @apply rounded-md border-border py-3 text-text focus:border-primary focus:ring-transparent;
+  @apply rounded-md border-border dark:border-darkmode-border bg-white dark:bg-darkmode-body text-dark dark:text-darkmode-text py-3 focus:border-primary focus:ring-transparent;
+  @apply placeholder:text-text-light dark:placeholder:text-darkmode-text;
+}
+
+/* 다크모드에서 입력 필드 포커스 스타일 개선 */
+.form-input:focus,
+.form-textarea:focus {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
+}
+
+/* 다크모드에서 선택 요소 스타일 */
+select.form-input {
+  @apply bg-white dark:bg-darkmode-body;
+}
+
+/* 체크박스 및 라디오 버튼 다크모드 지원*/
+input[type="checkbox"],
+input[type="radio"] {
+  @apply bg-white dark:bg-darkmode-body border-border dark:border-darkmode-border;
+}
+
+/* 체크박스/라디오 포커스 시 */
+input[type="checkbox"]:focus,
+input[type="radio"]:focus {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
+}
+
+/* 라벨 텍스트 다크모드 지원 */
+label {
+  @apply text-dark dark:text-darkmode-dark;
 }

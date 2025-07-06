@@ -44,6 +44,36 @@ const { title, meta_title, description, image, noindex, canonical } =
 <!doctype html>
 <html lang="en">
   <head>
+    <!-- 다크모드 플래시 방지 스크립트 (기존 내용 위에 추가) -->
+    <script is:inline>
+      (function () {
+        const getThemePreference = () => {
+          if (
+            typeof localStorage !== "undefined" &&
+            localStorage.getItem("theme")
+          ) {
+            return localStorage.getItem("theme");
+          }
+          return window.matchMedia("(prefers-color-scheme: dark)").matches
+            ? "dark"
+            : "light";
+        };
+        const isDark = getThemePreference() === "dark";
+        document.documentElement.classList[isDark ? "add" : "remove"]("dark");
+
+        if (typeof localStorage !== "undefined") {
+          const observer = new MutationObserver(() => {
+            const isDark = document.documentElement.classList.contains("dark");
+            localStorage.setItem("theme", isDark ? "dark" : "light");
+          });
+          observer.observe(document.documentElement, {
+            attributes: true,
+            attributeFilter: ["class"],
+          });
+        }
+      })();
+    </script>
+
     <!-- favicon -->
     <link rel="shortcut icon" href={config.site.favicon} />
     <!-- Google Search Console 소유권 확인 메타태그 -->
@@ -175,10 +205,10 @@ const { title, meta_title, description, image, noindex, canonical } =
     />
     <meta name="twitter:card" content="summary_large_image" />
   </head>
-  <body class="flex flex-col min-h-screen">
+  <body class="bg-body dark:bg-darkmode-body text-text dark:text-darkmode-text">
     <TwSizeIndicator />
     <Header />
-    <main id="main-content" class="flex-grow">
+    <main id="main-content" class="min-h-[60vh]">
       <slot />
     </main>
     <Footer />

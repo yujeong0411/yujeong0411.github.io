@@ -1,3 +1,18 @@
 @utility shadow {
   box-shadow: 0 10px 30px rgb(22 28 45 / 10%);
 }
+
+/* ✅ 새로 추가: 다크모드 전용 shadow 유틸리티 */
+@utility shadow-dark {
+  box-shadow: 0 10px 30px rgb(0 0 0 / 20%);
+}
+
+/* ✅ 새로 추가: 다크모드에서 더 부드러운 shadow */
+@utility shadow-light {
+  box-shadow: 0 4px 20px rgb(22 28 45 / 8%);
+}
+
+/* ✅ 새로 추가: 다크모드 호버 shadow */
+@utility shadow-hover-dark {
+  box-shadow: 0 15px 40px rgb(0 0 0 / 25%);
+}
