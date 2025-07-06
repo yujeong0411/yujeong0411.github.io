@@ -1,22 +1,4 @@
-/* ======== 기존 base.css (문제 있음) ======== */
-html {
-  @apply text-base;
-  margin-left: calc(100vw - 100%);
-  min-width: 375px;
-  scroll-behavior: smooth;
-}
 
-body {
-  @apply bg-body font-primary font-normal leading-relaxed text-text;
-  /* ❌ 다크모드 없음 */
-}
-
-h1, h2, h3, h4, h5, h6 {
-  @apply font-primary font-bold leading-tight text-dark;
-  /* ❌ 다크모드 없음 */
-}
-
-/* ======== 수정된 base.css (완벽한 다크모드) ======== */
 html {
   @apply text-base;
   margin-left: calc(100vw - 100%);

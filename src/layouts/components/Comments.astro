@@ -7,8 +7,6 @@ const { theme = "preferred_color_scheme" } = Astro.props;
 ---
 
 <div id="comments" class="mt-12 pt-8 border-t border-border">
-  <!-- <h3 class="text-xl font-bold mb-6 text-dark">💬 댓글</h3> -->
-
   <!-- 로딩 표시 -->
   <div id="giscus-loading" class="text-center py-8 text-text">
     <div
@@ -23,6 +21,12 @@ const { theme = "preferred_color_scheme" } = Astro.props;
 </div>
 
 <script define:vars={{ theme }}>
+  // 현재 테마 감지 함수
+  function getCurrentTheme() {
+    const isDark = document.documentElement.classList.contains("dark");
+    return isDark ? "dark" : "light";
+  }
+
   function loadGiscus() {
     // 기존 스크립트 제거 (페이지 전환 대응)
     const existingScript = document.getElementById("giscus-script");
@@ -34,6 +38,14 @@ const { theme = "preferred_color_scheme" } = Astro.props;
     const container = document.getElementById("giscus-container");
     if (!container) return;
     container.innerHTML = "";
+
+    // 현재 테마 결정
+    let currentTheme;
+    if (theme === "preferred_color_scheme") {
+      currentTheme = getCurrentTheme();
+    } else {
+      currentTheme = theme;
+    }
 
     // Giscus 스크립트 생성
     const script = document.createElement("script");
@@ -50,7 +62,7 @@ const { theme = "preferred_color_scheme" } = Astro.props;
     script.setAttribute("data-reactions-enabled", "1");
     script.setAttribute("data-emit-metadata", "1");
     script.setAttribute("data-input-position", "top");
-    script.setAttribute("data-theme", theme);
+    script.setAttribute("data-theme", currentTheme);
     script.setAttribute("data-lang", "ko");
     script.setAttribute("data-loading", "lazy");
     script.crossOrigin = "anonymous";

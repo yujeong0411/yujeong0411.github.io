@@ -41,6 +41,33 @@ const DarkModeToggle: React.FC = () => {
     }
   };
 
+  const updateGiscusTheme = (dark: boolean) => {
+    const giscusTheme = dark ? 'dark' : 'light';
+
+    // 여러 선택자로 iframe 찾기
+    const iframe =
+      document.querySelector<HTMLIFrameElement>('iframe.giscus-frame') ||
+      document.querySelector<HTMLIFrameElement>('iframe[title="Comments"]') ||
+      document.querySelector<HTMLIFrameElement>('iframe[src*="giscus.app"]');
+
+    if (iframe && iframe.contentWindow) {
+      try {
+        iframe.contentWindow.postMessage(
+          { giscus: { setConfig: { theme: giscusTheme } } },
+          'https://giscus.app'
+        );
+      } catch (error) {
+        console.log('Giscus theme update failed:', error);
+      }
+    }
+
+    // Comments.astro의 이벤트 리스너를 위한 커스텀 이벤트 dispatch
+    const themeChangeEvent = new CustomEvent('theme-change', {
+      detail: { theme: giscusTheme }
+    });
+    document.dispatchEvent(themeChangeEvent);
+  };
+
   const toggleTheme = () => {
     const newTheme = !isDark;
     setIsDark(newTheme);
@@ -48,14 +75,7 @@ const DarkModeToggle: React.FC = () => {
     localStorage.setItem('theme', newTheme ? 'dark' : 'light');
 
     // giscus 테마도 함께 변경
-    const iframe = document.querySelector<HTMLIFrameElement>('iframe.giscus-frame');
-    if (iframe) {
-      const giscusTheme = newTheme ? 'dark' : 'light';
-      iframe.contentWindow?.postMessage(
-        { giscus: { setConfig: { theme: giscusTheme } } },
-        'https://giscus.app'
-      );
-    }
+    updateGiscusTheme(newTheme);
   };
 
   return (
