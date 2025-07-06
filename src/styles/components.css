@@ -72,7 +72,7 @@
   }
 }
 
-/* content style - 다크모드 지원 대폭 개선 */
+/* content style  */
 .content {
   @apply prose max-w-none 
   prose-headings:font-bold prose-headings:text-dark dark:prose-headings:text-darkmode-dark
@@ -81,8 +81,7 @@
   prose-h3:mt-4 prose-h3:text-h3-sm 
   prose-h4:mt-4 prose-h5:mb-4 prose-h6:mb-6 
   prose-blockquote:rounded-lg prose-blockquote:border-primary prose-blockquote:bg-light dark:prose-blockquote:bg-darkmode-light prose-blockquote:px-7 prose-blockquote:py-3 prose-blockquote:text-lg prose-blockquote:leading-8 
-  prose-pre:px-6 prose-pre:py-5 prose-pre:bg-light dark:prose-pre:bg-darkmode-light prose-pre:text-dark dark:prose-pre:text-darkmode-dark
-  prose-code:bg-light dark:prose-code:bg-darkmode-light prose-code:text-dark dark:prose-code:text-darkmode-dark prose-code:px-1 prose-code:py-0.5 prose-code:rounded
+  prose-pre:px-6 prose-pre:py-5 
   prose-p:text-text dark:prose-p:text-darkmode-text 
   prose-li:text-text dark:prose-li:text-darkmode-text
   prose-strong:text-dark dark:prose-strong:text-darkmode-dark
@@ -95,7 +94,7 @@
   md:prose-h1:text-h1 md:prose-h2:text-h2 md:prose-h3:text-h3;
 }
 
-/* 추가: 목록 스타일 개선 */
+/* 목록 스타일 개선 */
 .content ul li::marker {
   @apply text-primary;
 }
@@ -104,7 +103,7 @@
   @apply text-primary;
 }
 
-/* 추가: 테이블 스타일 다크모드 지원 */
+/* 테이블 스타일 다크모드 지원 */
 .content table {
   @apply border-border dark:border-darkmode-border;
 }
