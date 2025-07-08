@@ -82,16 +82,28 @@
   prose-h4:mt-4 prose-h5:mb-4 prose-h6:mb-6 
   prose-blockquote:rounded-lg prose-blockquote:border-primary prose-blockquote:bg-light dark:prose-blockquote:bg-darkmode-light prose-blockquote:px-7 prose-blockquote:py-3 prose-blockquote:text-lg prose-blockquote:leading-8 
   prose-pre:px-6 prose-pre:py-5 
-  prose-p:text-text dark:prose-p:text-darkmode-text 
-  prose-li:text-text dark:prose-li:text-darkmode-text
+  prose-p:text-dark dark:prose-p:text-darkmode-text
+  prose-li:text-dark dark:prose-li:text-darkmode-text
   prose-strong:text-dark dark:prose-strong:text-darkmode-dark
   prose-em:text-text dark:prose-em:text-darkmode-text
+
+  prose-code:text-red-500 dark:prose-code:text-red-500
+
+  prose-code:px-1 prose-code:py-0.5 prose-code:rounded
+  prose-code:font-mono prose-code:text-sm
+
+  prose-pre:text-slate-300 dark:prose-pre:text-slate-300
+  prose-pre:bg-slate-900 dark:prose-pre:bg-slate-900
   prose-a:text-primary hover:prose-a:text-primary dark:prose-a:text-primary
   prose-table:text-text dark:prose-table:text-darkmode-text
   prose-th:text-dark dark:prose-th:text-darkmode-dark
   prose-td:text-text dark:prose-td:text-darkmode-text
   prose-hr:border-border dark:prose-hr:border-darkmode-border
   md:prose-h1:text-h1 md:prose-h2:text-h2 md:prose-h3:text-h3;
+}
+
+.content blockquote {
+  quotes: none !important;
 }
 
 /* 목록 스타일 개선 */

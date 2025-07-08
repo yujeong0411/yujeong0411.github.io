@@ -50,7 +50,7 @@ img {
 
 /* ✅ 추가: 기본 텍스트 요소들에 다크모드 지원 */
 p {
-  @apply text-text dark:text-darkmode-text;
+  @apply text-dark dark:text-darkmode-text;
 }
 
 a {
@@ -59,12 +59,12 @@ a {
 
 /* 목록 요소들 */
 ul, ol, li {
-  @apply text-text dark:text-darkmode-text;
+  @apply text-dark dark:text-darkmode-text;
 }
 
 /* 테이블 요소들 */
 table {
-  @apply text-text dark:text-darkmode-text;
+  @apply text-dark dark:text-darkmode-text;
 }
 
 th {
@@ -72,7 +72,7 @@ th {
 }
 
 td {
-  @apply text-text dark:text-darkmode-text;
+  @apply text-dark dark:text-darkmode-text;
 }
 
 /* 폼 요소들 */
@@ -91,5 +91,5 @@ pre {
 
 /* 인용구 */
 blockquote {
-  @apply text-text dark:text-darkmode-text;
+  @apply text-dark dark:text-darkmode-text;
 }
