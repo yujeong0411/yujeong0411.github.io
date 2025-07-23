@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://yujeong0411.github.io/sitemap.xml
